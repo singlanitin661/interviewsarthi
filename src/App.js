@@ -7,8 +7,8 @@ function App() {
   return (
     <div className="root">
       <Navbar className="root-Nabvar"/>
-      {/* <AIface className="root-left"/> */}
-      <Chatbot className="root-right"/>
+      <AIface className="root-left"/>
+      {/* <Chatbot className="root-right"/> */}
     </div>
   );
 }
