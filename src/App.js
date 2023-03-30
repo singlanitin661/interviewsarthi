@@ -8,7 +8,7 @@ function App() {
     <div className="root">
       <Navbar className="root-Nabvar"/>
       <AIface className="root-left"/>
-      {/* <Chatbot className="root-right"/> */}
+      <Chatbot className="root-right"/>
     </div>
   );
 }

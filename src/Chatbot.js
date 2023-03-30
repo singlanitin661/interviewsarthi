@@ -113,7 +113,7 @@ const Chatbot = () => {
                 onChange={handleInputChange}
               />
               <button type="submit" className="chatbot-submit">
-                <img src="/submit-icon.svg" alt="Submit" />
+                <img src="https://cdn-icons-png.flaticon.com/128/786/786205.png" alt="Submit" />
               </button>
             </div>
           </form>

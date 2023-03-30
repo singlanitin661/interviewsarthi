@@ -12,6 +12,8 @@ nav {
     font-size: 20px;
     font-weight: bold;
     cursor:pointer;
+    background-color: #282c34;
+    color: #fff;
   }
   
   .question-section {
@@ -29,7 +31,8 @@ nav {
   .timer {
     font-size: 18px;
     font-weight: bold;
-    cursor: pointer;
+    cursor: pointer;background-color: #282c34;
+    color: #fff;
   }
   
   a {

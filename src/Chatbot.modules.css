@@ -1,15 +1,11 @@
 .chatbot {
   background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
-  height: 400px;
+  height: 85vh;
   margin: 0 auto;
-  overflow-y: auto;
-  width: 80%;
+  width: 79%;
+  margin-left: 20%;
 }
-
 .chatbot-container {
   display: flex;
   flex-direction: column;
