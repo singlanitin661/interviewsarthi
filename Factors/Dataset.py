@@ -15,4 +15,22 @@ result = evaluate_emotional_intelligence(sen)
 print(result)
 
 
+# For comparing answers using BERT-COgen
 
+
+
+sent1 = 'i like honest people'
+sent2 = 'i like calm people'
+print(compare_answers(sent1,sent2)) # -> 0.39
+
+sent1 = 'i like honest people'
+sent2 = 'i like integrity in people'
+print(compare_answers(sent1,sent2)) # -> 0.79
+
+
+# For number Grammatical errors
+sent = "Their is many peoples who enjoys to eat ice cream in the summer. Me and my friend goes to the beach yesterday and we was having a great time. But then, it started raining and we gets all wet. We should of bring an umbrella with us."
+print(num_gramm_errors(sent)) # -> 8
+
+sent = 'I has a apple'
+print(num_gramm_errors(sent)) # -> 2
