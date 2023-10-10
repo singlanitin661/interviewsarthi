@@ -9,6 +9,8 @@ nltk.download('punkt')
 nltk.download('vader_lexicon')
 sia = SentimentIntensityAnalyzer()
 
+
+#Used to evaluate the emotional intelligence or sentimental score of user's answer
 def evaluate_emotional_intelligence(answer):
     # Tokenize the answer
     tokens = word_tokenize(answer)
