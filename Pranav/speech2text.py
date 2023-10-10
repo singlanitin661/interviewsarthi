@@ -20,5 +20,3 @@ except sr.UnknownValueError:
     print("Sorry, I could not understand the audio.")
 except sr.RequestError as e:
     print(f"An error occurred: {e}")
-
-# You can now process or utilize the recognized text as needed in your project.
