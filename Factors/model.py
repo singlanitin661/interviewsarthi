@@ -13,6 +13,13 @@ nltk.download('vader_lexicon')
 sia = SentimentIntensityAnalyzer()
 from sentence_transformers import SentenceTransformer , util             
 import language_tool_python
+nltk.download('wordnet')
+from nltk.corpus import stopwords
+nltk.download('stopwords')
+stopwords.words('english')
+import string
+from nltk.stem import WordNetLemmatizer 
+
 
 
 #Used to evaluate the emotional intelligence or sentimental score of user's answer
@@ -49,6 +56,34 @@ def num_gramm_errors(user_ans) :
   
     # Return the number of grammar issues
     return len(matches)
+
+def smallmodel(answer):
+    currScore = 0 
+    words = word_tokenize(answer)
+    stop_words = set(stopwords.words('english'))
+    punctuations = set(string.punctuation)
+    filtered_words = [word.lower() for word in words if word.lower() not in stop_words and word not in punctuations]
+    lemmatizer = WordNetLemmatizer()
+    lemmatized_words = [lemmatizer.lemmatize(word) for word in filtered_words]
+    num_words = len(lemmatized_words)
+    unique_words = set(lemmatized_words)
+    num_unique_words = len(unique_words)
+
+    # Calculate the type-token ratio and lexical density
+    ttr = num_unique_words / num_words
+    lexical_density = num_words / len(words)
+
+    # Calculate the average word length and sentence length
+    avg_word_len = sum(len(word) for word in lemmatized_words) / num_words
+    sentences = nltk.sent_tokenize(answer)
+    avg_sent_len = sum(len(sentence) for sentence in sentences) / len(sentences)
+
+    print("Type-Token Ratio:", ttr)
+    print("Lexical Density:", lexical_density)
+    print("Average Word Length:", avg_word_len)
+    print("Average Sentence Length:", avg_sent_len)
+
+
 
 # main model :-> from where we are going to invoke all these factor functions
 #don't write anything here yet
