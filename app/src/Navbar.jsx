@@ -1,14 +1,21 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography } from '@mui/material';
+import Navbar from './Navbar';
+import LeftPanel from './LeftPanel';
+import RightPanel from './RightPanel';
+import { Container } from '@mui/material';
 
-const Navbar = () => {
+const MainComponent = () => {
   return (
-    <AppBar position='fixed'>
-      <Toolbar>
-        <Typography variant="h6">InterviewSarthi</Typography>
-      </Toolbar>
-    </AppBar>
+    <div style={{ overflow: 'hidden' }}>
+      <Navbar />
+      <div style={{ paddingTop: '64px', height: 'calc(100vh - 64px)', overflow: 'hidden' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
+          <LeftPanel />
+          <RightPanel />
+        </div>
+      </div>
+    </div>
   );
 };
 
-export default Navbar;
+export default MainComponent;

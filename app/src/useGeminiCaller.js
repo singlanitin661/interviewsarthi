@@ -8,7 +8,7 @@ const generationConfig = {
   topK: 16,
 };
 // Access your API key as an environment variable (see "Set up your API key" above)
-const genAI = new GoogleGenerativeAI(process.env.REACT_APP_Gemini_key, generationConfig);
+const genAI = new GoogleGenerativeAI('AIzaSyDq4UVgjWhdTUcmYM84DzFQIJqXQi7qRnw', generationConfig);
 
 const GeminiCaller = async (input) => {
   const model = genAI.getGenerativeModel({ model: "gemini-pro"});

@@ -3,3 +3,7 @@
 .hidden{
   overflow: hidden;
 }
+
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
