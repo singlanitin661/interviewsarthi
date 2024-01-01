@@ -8,9 +8,11 @@ const MainComponent = () => {
   return (
     <div style={{ overflow: 'hidden' }}>
       <Navbar />
-      <div style={{ display: 'flex', flexDirection: 'row', height: 'calc(100vh - 64px)', overflow: 'hidden' }}>
-        <LeftPanel />
-        <RightPanel />
+      <div style={{ paddingTop: '64px', height: 'calc(100vh - 64px)', overflow: 'hidden' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', height: '100%' }}>
+          <LeftPanel />
+          <RightPanel />
+        </div>
       </div>
     </div>
   );
