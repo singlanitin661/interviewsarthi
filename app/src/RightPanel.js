@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Typography, TextField, Button, Paper, Grid } from '@mui/material';
+import GeminiCaller from "./useGeminiCaller";
 
 const RightPanel = () => {
   const [chatMessages, setChatMessages] = useState([]);
@@ -16,9 +17,10 @@ const RightPanel = () => {
     return botResponses[randomIndex];
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async() => {
     if (userInput.trim() !== '') {
-      console.log(userInput);
+    //   const generativeResults = await GeminiCaller(userInput);
+    //   console.log(userInput);
     }
   };
 
