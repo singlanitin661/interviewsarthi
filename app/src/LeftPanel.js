@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import CachedIcon from "@mui/icons-material/Cached";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import PersonIcon from "@mui/icons-material/Person";
 
 const LeftPanel = () => {
   useEffect(() => {
@@ -30,6 +31,7 @@ const LeftPanel = () => {
         height: "100vh",
         overflow: "auto",
         padding: "0",
+        paddingTop: "30px",
       }}
     >
       <div className="leftContainer" style={{ padding: "10px" }}>
@@ -38,23 +40,41 @@ const LeftPanel = () => {
             id="imageElement"
             src="https://png.pngtree.com/thumb_back/fh260/background/20230408/pngtree-robot-white-cute-robot-blue-light-background-image_2199825.jpg"
             alt="Sample Image"
-            style={{ width: "100%", height: "auto", borderRadius: "5px" }}
+            style={{
+              width: "100%",
+              height: "auto",
+              borderRadius: "5px",
+              paddingTop: "50px",
+            }}
           />
         </div>
         <div id="videoleftContainer" style={{ margin: "10px auto" }}>
           <video
             id="videoElement"
             autoPlay
-            style={{ width: "100%", height: "auto", borderRadius: "5px" }}
+            style={{
+              width: "100%",
+              height: "auto",
+              borderRadius: "5px",
+              backgroundColor: "black",
+            }}
           ></video>
         </div>
-        <Button
-          variant="contained"
-          className="speakBtn"
-          style={{ width: "100%", borderRadius: "5px", marginBottom: "10px" }}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
         >
-          Pardon Me
-        </Button>
+          <Button
+            variant="contained"
+            className="speakBtn"
+            style={{ width: "75%", borderRadius: "5px", marginBottom: "10px" }}
+          >
+            Pardon Me
+          </Button>
+        </div>
         <div className="issueSection" style={{ textAlign: "center" }}>
           <Typography
             variant="subtitle1"

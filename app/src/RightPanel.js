@@ -13,20 +13,10 @@ import GeminiCaller from "./useGeminiCaller";
 
 
 const RightPanel = () => {
-  const [chatMessages, setChatMessages] = useState([]);
+  const msg = [{sender:'Bot',message:"Introduce Yourself!"}] ;
+  const [chatMessages, setChatMessages] = useState(msg);
   const [userInput, setUserInput] = useState("");
-  const botResponses = [
-    "That's interesting!",
-    "Could you elaborate?",
-    "I'm not sure I understand.",
-    "Tell me more about that.",
-    "Have you considered other options?",
-  ];
-
-  const generateBotResponse = () => {
-    const randomIndex = Math.floor(Math.random() * botResponses.length);
-    return botResponses[randomIndex];
-  };
+  
 
   const handleSendMessage = () => {
     if (userInput.trim() !== "") {
@@ -43,7 +33,6 @@ const RightPanel = () => {
   };
 
   const simulateBotResponse = async(newMessages,curr) => {
-    //   const botResponse = generateBotResponse();
       const botResponse = await GeminiCaller(curr);
       const updatedMessages = [
         ...newMessages,
@@ -55,7 +44,7 @@ const RightPanel = () => {
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      event.preventDefault(); // Prevent the default behavior of the Enter key
+      event.preventDefault(); 
       handleSendMessage();
     }
   };
@@ -76,7 +65,7 @@ const RightPanel = () => {
         width: "80%",
         backgroundColor: "#f0f0f0",
         height: "100vh",
-        overflow: "hidden",
+        overflow: "hidden"
       }}
     >
       <Paper
@@ -100,16 +89,18 @@ const RightPanel = () => {
             direction={msg.sender === "User" ? "row-reverse" : "row"}
             justifyContent={msg.sender === "User" ? "flex-end" : "flex-start"}
             alignItems="center"
-            sx={{ marginBottom: "10px" }}
+            sx={{ marginBottom: "10px",padding:'5px'  }}
           >
             <Grid item>
               <Paper
                 elevation={3}
                 sx={{
                   padding: "10px",
+                  marginLeft: "40px",
+                  marginRight: "40px",
                   borderRadius: "10px",
                   backgroundColor:
-                    msg.sender === "User" ? "#e1ffc7" : "#c7d8ff",
+                    msg.sender === "User" ? "#42bdfc" : "#f0f1f1",
                 }}
               >
                 <Typography variant="body1">{msg.message}</Typography>
@@ -128,22 +119,26 @@ const RightPanel = () => {
         }}
       >
         <TextField
-          fullWidth
-          multiline
-          maxRows={2} // Adjust the number of rows as needed
-          variant="outlined"
-          placeholder="Type your answer here"
-          value={userInput}
-          onChange={(e) => setUserInput(e.target.value)}
-          onKeyPress={handleKeyPress}
-          sx={{ margin: "10px" , paddingBottom:'2px'}}
-        />
+  fullWidth
+  multiline
+  maxRows={2} // Adjust the number of rows as needed
+  variant="outlined"
+  placeholder="Type your answer here"
+  value={userInput}
+  onChange={(e) => setUserInput(e.target.value)}
+  onKeyPress={handleKeyPress}
+  sx={{
+    margin: "10px",
+    paddingBottom: '2px',
+    borderRadius: '5px' 
+  }}
+/>
 
         <Button
           variant="contained"
           onClick={handleSendMessage}
           disabled={userInput.trim() === ""}
-          sx={{ minWidth: 0, padding: "10px", marginRight: "10px" }}
+          sx={{ minWidth: 0, padding: "10px", marginRight: "10px" ,borderRadius:'5px'}}
         >
           <SvgIcon component={SendIcon} viewBox="0 0 24 24" fontSize="large" />
         </Button>

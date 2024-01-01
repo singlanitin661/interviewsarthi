@@ -3,9 +3,9 @@ import { AppBar, Toolbar, Typography } from '@mui/material';
 
 const Navbar = () => {
   return (
-    <AppBar position='fixed' style={{backgroundColor:'black'}}>
+    <AppBar position='fixed' style={{ backgroundColor: 'black' }}>
       <Toolbar>
-        <Typography variant="h6">InterviewSarthi</Typography>
+        <Typography variant="h6" style={{fontFamily:'comic-sans-MS'}}>InterviewSarthi</Typography>
       </Toolbar>
     </AppBar>
   );
