@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { AppBar, Button, Toolbar, Typography } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [timer, setTimer] = useState(0);
@@ -7,6 +8,7 @@ const Navbar = () => {
   const timerRef = useRef(null);
   const startTimeRef = useRef(0);
   const pausedTimeRef = useRef(0);
+  const isStarted = useSelector((state) => state.start.value);
 
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60)
@@ -38,14 +40,17 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    if (pausedTimeRef.current !== 0) {
-      setTimer(pausedTimeRef.current);
+    if (isStarted) {
       startTimer();
+    } else {
+      clearInterval(timerRef.current);
+      setTimer(0);
     }
+
     return () => {
       clearInterval(timerRef.current);
     };
-  }, []);
+  }, [isStarted]);
 
   return (
     <AppBar position="fixed" style={{ backgroundColor: "black" }}>
@@ -53,7 +58,7 @@ const Navbar = () => {
         <div style={{ display: "flex", alignItems: "center" }}>
           <Button
             variant="text"
-            style={{ pointerEvents: "none", opacity: isRunning ? 1 : 1 }}
+            style={{ pointerEvents: "none", opacity: isStarted ? 1 : 0 }}
           >
             <Typography variant="h6" style={{ color: "#f0f1f1" }}>
               0/3
@@ -64,7 +69,7 @@ const Navbar = () => {
           InterviewSarthi
         </Typography>
         <Button
-          style={{ color: "#f0f1f1", opacity: isRunning ? 1 : 1 }}
+          style={{ color: "#f0f1f1", opacity: isStarted ? 1 : 0 }}
           onClick={handleTimerClick}
         >
           <Typography variant="h6">{formatTime(timer)}</Typography>

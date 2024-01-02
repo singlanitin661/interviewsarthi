@@ -1,11 +1,15 @@
-import './App.css';
-import MainComponent from './MainComponent';
-
+import "./App.css";
+import MainComponent from "./MainComponent";
+import appStore from "./utils/store";
+import { Provider } from "react-redux";
 function App() {
   return (
-    <div className='hidden'>
-      <MainComponent/>
-    </div>
+    <Provider store={appStore}>
+      <div className="">
+        <MainComponent />
+        {/* HR */}
+      </div>
+    </Provider>
   );
 }
 

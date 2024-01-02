@@ -7,7 +7,6 @@ const generationConfig = {
   topP: 0.1,
   topK: 16,
 };
-// Access your API key as an environment variable (see "Set up your API key" above)
 const genAI = new GoogleGenerativeAI('AIzaSyDq4UVgjWhdTUcmYM84DzFQIJqXQi7qRnw', generationConfig);
 
 const GeminiCaller = async (input) => {
@@ -19,21 +18,8 @@ const GeminiCaller = async (input) => {
     const response = await result.response;
     const text = response.text();
     console.log(text) ;
-    let jsonAnswer = {
-      "Score": "5/10",
-      "Improvements": "Possible improvements in at-max 50 words",
-      "Continuations": "A valid example can be as follows: Okay, now moving on to the next question",
-      "IdealAnswer": "The ideal answer for the previous question"
-    };
-    // jsonAnswer = JSON.stringify(jsonAnswer);
-    console.log(jsonAnswer);
-    console.log(typeof jsonAnswer);
     
-  return jsonAnswer;
+  return text;
 }
 
 export default GeminiCaller;
-
-// out of 20 score // strictly
-// 50 words mein -> improvement 
-// next question 

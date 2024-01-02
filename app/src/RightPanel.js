@@ -1,62 +1,29 @@
 import React, { useState, useEffect, useRef } from "react";
 import {
-  Box,
-  Typography,
-  TextField,
-  Button,
-  Paper,
-  Grid,
-  SvgIcon,
+  Box, TextField, Button, Paper, SvgIcon
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
 import MicOffIcon from "@mui/icons-material/MicOff";
 import GeminiCaller from "./useGeminiCaller";
+import { useDispatch, useSelector } from "react-redux";
+import { changeSpeakValue } from "./utils/gemini/speakSlice";
+import ChatBubble from "./ChatBubble";
 
-const ChatBubble = ({ sender, message }) => {
-  const isUser = sender === "User";
-  const marginLeft = isUser ? "360px" : "40px";
-  const marginRight = isUser ? "40px" : "360px";
-  const backgroundColor = isUser ? "#42bdfc" : "#f0f1f1";
-
-  return (
-    <Grid
-      container
-      direction={isUser ? "row-reverse" : "row"}
-      justifyContent={isUser ? "flex-end" : "flex-start"}
-      alignItems="center"
-      sx={{ marginBottom: "10px", padding: "5px" }}
-    >
-      <Grid item>
-        <Paper
-          elevation={3}
-          sx={{
-            padding: "10px",
-            marginLeft,
-            marginRight,
-            borderRadius: "10px",
-            backgroundColor,
-          }}
-        >
-          <Typography variant="body1">{message}</Typography>
-        </Paper>
-      </Grid>
-    </Grid>
-  );
-};
 
 const RightPanel = ({ totalCount = 3 }) => {
   const [micbtn, setMicbtn] = useState(false);
   const [count, setCount] = useState(1);
-  const [chatMessages, setChatMessages] = useState([
-    { sender: "Bot", message: "Introduce Yourself!" },
-  ]);
+  const [chatMessages, setChatMessages] = useState([{ sender: "Bot", message: "Introduce Yourself!" }]);
   const [userInput, setUserInput] = useState("");
   const [recording, setRecording] = useState(false);
   const mediaRecorderRef = useRef(null);
+  const isSpeaking = useSelector((state) => state.speak.value);
+  const dispatch = useDispatch();
 
   const handleSendMessage = () => {
     if (userInput.trim() !== "") {
+      dispatch(changeSpeakValue(true));
       const newMessages = [
         ...chatMessages,
         { sender: "User", message: userInput },
@@ -70,26 +37,15 @@ const RightPanel = ({ totalCount = 3 }) => {
   const simulateBotResponse = async (newMessages, curr) => {
     setCount((prevCount) => prevCount + 1);
     const botResponse = await GeminiCaller(curr);
-    if(count === totalCount){
-      const updatedMessages = [
-        ...newMessages,
-        { sender: "Bot", message: botResponse.Score },
-        { sender: "Bot", message: botResponse.Improvements },
-        { sender: "Bot", message: "Thanks a lot, interview is over now" },
-      ];
-      setChatMessages(updatedMessages);
-    }else{
-      const updatedMessages = [
-        ...newMessages,
-        { sender: "Bot", message: botResponse.Score },
-        { sender: "Bot", message: botResponse.Improvements },
-        { sender: "Bot", message: botResponse.Continuations },
-      ];
-      setChatMessages(updatedMessages);
-
-    }
+    const updatedMessages = [
+      ...newMessages,
+      { sender: "Bot", message: botResponse },
+    ];
+    setChatMessages(updatedMessages);
+    dispatch(changeSpeakValue(false));
     scrollToBottom();
   };
+
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
@@ -102,9 +58,7 @@ const RightPanel = ({ totalCount = 3 }) => {
     setMicbtn((prevMicbtn) => !prevMicbtn);
     if (!recording) {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          audio: true,
-        });
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         mediaRecorderRef.current = new MediaRecorder(stream);
         mediaRecorderRef.current.ondataavailable = handleDataAvailable;
         mediaRecorderRef.current.start();
@@ -125,6 +79,7 @@ const RightPanel = ({ totalCount = 3 }) => {
     // You can send the recorded audio blob to your server for processing if needed
     console.log("Recorded audio blob:", blob);
   };
+
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "auto", block: "end" });

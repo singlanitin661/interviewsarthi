@@ -2,11 +2,19 @@ import React, { useEffect, useState } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import CachedIcon from "@mui/icons-material/Cached";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import { useDispatch, useSelector } from "react-redux";
+import { changeStartValue } from "./utils/gemini/startSlice";
 
 const LeftPanel = () => {
-  const [show , setShow] = useState(1) ;
+  const [show, setShow] = useState(1);
+  const isStarted = useSelector((state) => state.start.value);
+  const dispatch = useDispatch();
+
+  const handleValueUpdate = () => {
+    dispatch(changeStartValue(true));
+  };
+
   useEffect(() => {
-    // Accessing the camera and starting the video stream
     navigator.mediaDevices
       .getUserMedia({ video: true })
       .then(function (stream) {
@@ -35,8 +43,10 @@ const LeftPanel = () => {
       }}
     >
       <div className="leftContainer" style={{ padding: "10px" }}>
-        <div id="imageleftContainer" style={{ margin: "0 auto",paddingTop: "50px" }}>
-        
+        <div
+          id="imageleftContainer"
+          style={{ margin: "0 auto", paddingTop: "50px" }}
+        >
           <img
             id="imageElement"
             src="https://png.pngtree.com/thumb_back/fh260/background/20230408/pngtree-robot-white-cute-robot-blue-light-background-image_2199825.jpg"
@@ -45,11 +55,14 @@ const LeftPanel = () => {
               width: "100%",
               height: "auto",
               borderRadius: "5px",
-              zIndex : '5',
-              boxShadow : '2px 2px 2px grey'
+              zIndex: "5",
+              boxShadow: "2px 2px 2px grey",
             }}
           ></img>
-          <div className="dot-typing" style={{zIndex : 100,opacity:show}} ></div>
+          <div
+            className="dot-typing"
+            style={{ zIndex: 100, opacity: isStarted ? 1 : 0 }}
+          ></div>
         </div>
         <div id="videoleftContainer" style={{ margin: "10px auto" }}>
           <video
@@ -60,8 +73,8 @@ const LeftPanel = () => {
               height: "auto",
               borderRadius: "5px",
               backgroundColor: "black",
-              zIndex : '5',
-              boxShadow : '2px 2px 2px grey'
+              zIndex: "5",
+              boxShadow: "2px 2px 2px grey",
             }}
           ></video>
         </div>
@@ -75,7 +88,15 @@ const LeftPanel = () => {
           <Button
             variant="contained"
             className="speakBtn"
-            style={{ width: "75%", borderRadius: "5px", marginBottom: "10px", backgroundColor:'black', color:'white' , fontStyle : 'bold' }}
+            onClick={handleValueUpdate}
+            style={{
+              width: "75%",
+              borderRadius: "5px",
+              marginBottom: "10px",
+              backgroundColor: "black",
+              color: "white",
+              fontStyle: "bold",
+            }}
           >
             Pardon Me
           </Button>
