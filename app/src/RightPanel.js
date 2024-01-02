@@ -37,11 +37,25 @@ const RightPanel = ({ totalCount = 3 }) => {
   const simulateBotResponse = async (newMessages, curr) => {
     setCount((prevCount) => prevCount + 1);
     const botResponse = await GeminiCaller(curr);
+    if(count === totalCount){
+      const updatedMessages = [
+        ...newMessages,
+        { sender: "Bot", message: "Score : "+botResponse.score },
+        { sender: "Bot", message: "Feedback : " + botResponse.feedback },
+        { sender: "Bot", message: "You have successfully completed the Interview" },
+      ];
+      setChatMessages(updatedMessages);
+    
+    }else{
     const updatedMessages = [
       ...newMessages,
-      { sender: "Bot", message: botResponse },
+      { sender: "Bot", message: "Score : "+ botResponse.score },
+      { sender: "Bot", message: "Feedback : " + botResponse.feedback },
+      { sender: "Bot", message: "Question : " + botResponse.question },
     ];
     setChatMessages(updatedMessages);
+  
+  }
     dispatch(changeSpeakValue(false));
     scrollToBottom();
   };
