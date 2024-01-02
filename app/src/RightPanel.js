@@ -9,12 +9,50 @@ import {
   SvgIcon,
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
+import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
+import MicOffIcon from "@mui/icons-material/MicOff";
 import GeminiCaller from "./useGeminiCaller";
 
-const RightPanel = () => {
-  const msg = [{ sender: "Bot", message: "Introduce Yourself!" }];
-  const [chatMessages, setChatMessages] = useState(msg);
+const ChatBubble = ({ sender, message }) => {
+  const isUser = sender === "User";
+  const marginLeft = isUser ? "360px" : "40px";
+  const marginRight = isUser ? "40px" : "360px";
+  const backgroundColor = isUser ? "#42bdfc" : "#f0f1f1";
+
+  return (
+    <Grid
+      container
+      direction={isUser ? "row-reverse" : "row"}
+      justifyContent={isUser ? "flex-end" : "flex-start"}
+      alignItems="center"
+      sx={{ marginBottom: "10px", padding: "5px" }}
+    >
+      <Grid item>
+        <Paper
+          elevation={3}
+          sx={{
+            padding: "10px",
+            marginLeft,
+            marginRight,
+            borderRadius: "10px",
+            backgroundColor,
+          }}
+        >
+          <Typography variant="body1">{message}</Typography>
+        </Paper>
+      </Grid>
+    </Grid>
+  );
+};
+
+const RightPanel = ({ totalCount = 3 }) => {
+  const [micbtn, setMicbtn] = useState(false);
+  const [count, setCount] = useState(1);
+  const [chatMessages, setChatMessages] = useState([{ sender: "Bot", message: "Introduce Yourself!" }]);
   const [userInput, setUserInput] = useState("");
+  const [recording, setRecording] = useState(false);
+  const mediaRecorderRef = useRef(null);
+
 
   const handleSendMessage = () => {
     if (userInput.trim() !== "") {
@@ -22,15 +60,14 @@ const RightPanel = () => {
         ...chatMessages,
         { sender: "User", message: userInput },
       ];
-      const curr = userInput;
       setChatMessages(newMessages);
       setUserInput("");
-
-      simulateBotResponse(newMessages, curr);
+      simulateBotResponse(newMessages, userInput);
     }
   };
 
   const simulateBotResponse = async (newMessages, curr) => {
+    setCount((prevCount) => prevCount + 1);
     const botResponse = await GeminiCaller(curr);
     const updatedMessages = [
       ...newMessages,
@@ -40,6 +77,7 @@ const RightPanel = () => {
     scrollToBottom();
   };
 
+
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
@@ -47,15 +85,42 @@ const RightPanel = () => {
     }
   };
 
+  const handleMicBtn = async () => {
+    setMicbtn((prevMicbtn) => !prevMicbtn);
+    if (!recording) {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorderRef.current = new MediaRecorder(stream);
+        mediaRecorderRef.current.ondataavailable = handleDataAvailable;
+        mediaRecorderRef.current.start();
+        setRecording(true);
+      } catch (error) {
+        console.error("Error accessing microphone:", error);
+      }
+    } else {
+      mediaRecorderRef.current.stop();
+      setRecording(false);
+    }
+  };
+
+  const handleDataAvailable = (event) => {
+    const chunks = [];
+    chunks.push(event.data);
+    const blob = new Blob(chunks, { type: "audio/wav" });
+    // You can send the recorded audio blob to your server for processing if needed
+    console.log("Recorded audio blob:", blob);
+  };
+
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "auto", block: "end" });
   };
 
+  const messagesEndRef = useRef(null);
+
   useEffect(() => {
     scrollToBottom();
   }, [chatMessages]);
-
-  const messagesEndRef = useRef(null);
 
   return (
     <Box
@@ -81,34 +146,10 @@ const RightPanel = () => {
         }}
       >
         {chatMessages.map((msg, index) => (
-          <Grid
-            key={index}
-            container
-            direction={msg.sender === "User" ? "row-reverse" : "row"}
-            justifyContent={msg.sender === "User" ? "flex-end" : "flex-start"}
-            alignItems="center"
-            sx={{ marginBottom: "10px", padding: "5px" }}
-          >
-            <Grid item>
-              <Paper
-                elevation={3}
-                sx={{
-                  padding: "10px",
-                  marginLeft: "40px",
-                  marginRight: "40px",
-                  borderRadius: "10px",
-                  backgroundColor:
-                    msg.sender === "User" ? "#42bdfc" : "#f0f1f1",
-                }}
-              >
-                <Typography variant="body1">{msg.message}</Typography>
-              </Paper>
-            </Grid>
-          </Grid>
+          <ChatBubble key={index} sender={msg.sender} message={msg.message} />
         ))}
         <div ref={messagesEndRef} />
       </Paper>
-
       <Box
         sx={{
           display: "flex",
@@ -119,7 +160,7 @@ const RightPanel = () => {
         <TextField
           fullWidth
           multiline
-          maxRows={2} // Adjust the number of rows as needed
+          maxRows={2}
           variant="outlined"
           placeholder="Type your answer here"
           value={userInput}
@@ -132,7 +173,25 @@ const RightPanel = () => {
             zIndex: 100,
           }}
         />
-
+        <Button
+          variant="contained"
+          onClick={handleMicBtn}
+          sx={{
+            minWidth: 0,
+            padding: "10px",
+            marginRight: "10px",
+            borderRadius: "5px",
+            zIndex: 100,
+            backgroundColor: micbtn ? "black" : "black",
+            color: micbtn ? "white" : "white",
+          }}
+        >
+          {micbtn ? (
+            <KeyboardVoiceIcon viewBox="0 0 24 24" fontSize="large" />
+          ) : (
+            <MicOffIcon viewBox="0 0 24 24" fontSize="large" />
+          )}
+        </Button>
         <Button
           variant="contained"
           onClick={handleSendMessage}
@@ -143,6 +202,7 @@ const RightPanel = () => {
             marginRight: "10px",
             borderRadius: "5px",
             zIndex: 100,
+            backgroundColor: "black",
           }}
         >
           <SvgIcon component={SendIcon} viewBox="0 0 24 24" fontSize="large" />
