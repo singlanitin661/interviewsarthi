@@ -11,12 +11,10 @@ import {
 import SendIcon from "@mui/icons-material/Send";
 import GeminiCaller from "./useGeminiCaller";
 
-
 const RightPanel = () => {
-  const msg = [{sender:'Bot',message:"Introduce Yourself!"}] ;
+  const msg = [{ sender: "Bot", message: "Introduce Yourself!" }];
   const [chatMessages, setChatMessages] = useState(msg);
   const [userInput, setUserInput] = useState("");
-  
 
   const handleSendMessage = () => {
     if (userInput.trim() !== "") {
@@ -24,27 +22,27 @@ const RightPanel = () => {
         ...chatMessages,
         { sender: "User", message: userInput },
       ];
-      const curr = userInput ;
+      const curr = userInput;
       setChatMessages(newMessages);
       setUserInput("");
 
-      simulateBotResponse(newMessages,curr);
+      simulateBotResponse(newMessages, curr);
     }
   };
 
-  const simulateBotResponse = async(newMessages,curr) => {
-      const botResponse = await GeminiCaller(curr);
-      const updatedMessages = [
-        ...newMessages,
-        { sender: "Bot", message: botResponse },
-      ];
-      setChatMessages(updatedMessages);
-      scrollToBottom();
+  const simulateBotResponse = async (newMessages, curr) => {
+    const botResponse = await GeminiCaller(curr);
+    const updatedMessages = [
+      ...newMessages,
+      { sender: "Bot", message: botResponse },
+    ];
+    setChatMessages(updatedMessages);
+    scrollToBottom();
   };
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      event.preventDefault(); 
+      event.preventDefault();
       handleSendMessage();
     }
   };
@@ -63,9 +61,9 @@ const RightPanel = () => {
     <Box
       sx={{
         width: "80%",
-        backgroundColor: "#f0f0f0",
+        backgroundColor: "#f0f1f1",
         height: "100vh",
-        overflow: "hidden"
+        overflow: "hidden",
       }}
     >
       <Paper
@@ -89,7 +87,7 @@ const RightPanel = () => {
             direction={msg.sender === "User" ? "row-reverse" : "row"}
             justifyContent={msg.sender === "User" ? "flex-end" : "flex-start"}
             alignItems="center"
-            sx={{ marginBottom: "10px",padding:'5px'  }}
+            sx={{ marginBottom: "10px", padding: "5px" }}
           >
             <Grid item>
               <Paper
@@ -119,26 +117,33 @@ const RightPanel = () => {
         }}
       >
         <TextField
-  fullWidth
-  multiline
-  maxRows={2} // Adjust the number of rows as needed
-  variant="outlined"
-  placeholder="Type your answer here"
-  value={userInput}
-  onChange={(e) => setUserInput(e.target.value)}
-  onKeyPress={handleKeyPress}
-  sx={{
-    margin: "10px",
-    paddingBottom: '2px',
-    borderRadius: '5px' 
-  }}
-/>
+          fullWidth
+          multiline
+          maxRows={2} // Adjust the number of rows as needed
+          variant="outlined"
+          placeholder="Type your answer here"
+          value={userInput}
+          onChange={(e) => setUserInput(e.target.value)}
+          onKeyPress={handleKeyPress}
+          sx={{
+            margin: "10px",
+            paddingBottom: "2px",
+            borderRadius: "5px",
+            zIndex: 100,
+          }}
+        />
 
         <Button
           variant="contained"
           onClick={handleSendMessage}
           disabled={userInput.trim() === ""}
-          sx={{ minWidth: 0, padding: "10px", marginRight: "10px" ,borderRadius:'5px'}}
+          sx={{
+            minWidth: 0,
+            padding: "10px",
+            marginRight: "10px",
+            borderRadius: "5px",
+            zIndex: 100,
+          }}
         >
           <SvgIcon component={SendIcon} viewBox="0 0 24 24" fontSize="large" />
         </Button>

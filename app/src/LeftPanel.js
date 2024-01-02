@@ -3,6 +3,7 @@ import { Box, Button, Typography } from "@mui/material";
 import CachedIcon from "@mui/icons-material/Cached";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import PersonIcon from "@mui/icons-material/Person";
+import zIndex from "@mui/material/styles/zIndex";
 
 const LeftPanel = () => {
   useEffect(() => {
@@ -26,7 +27,7 @@ const LeftPanel = () => {
     <Box
       sx={{
         width: "20%",
-        backgroundColor: "#f1f1f1",
+        backgroundColor: "#f0f1f1",
         position: "relative",
         height: "100vh",
         overflow: "auto",
@@ -35,7 +36,7 @@ const LeftPanel = () => {
       }}
     >
       <div className="leftContainer" style={{ padding: "10px" }}>
-        <div id="imageleftContainer" style={{ margin: "0 auto" }}>
+        <div id="imageleftContainer" style={{ margin: "0 auto",paddingTop: "50px" }}>
           <img
             id="imageElement"
             src="https://png.pngtree.com/thumb_back/fh260/background/20230408/pngtree-robot-white-cute-robot-blue-light-background-image_2199825.jpg"
@@ -44,7 +45,8 @@ const LeftPanel = () => {
               width: "100%",
               height: "auto",
               borderRadius: "5px",
-              paddingTop: "50px",
+              zIndex : '5',
+              boxShadow : '2px 2px 2px grey'
             }}
           />
         </div>
@@ -57,6 +59,8 @@ const LeftPanel = () => {
               height: "auto",
               borderRadius: "5px",
               backgroundColor: "black",
+              zIndex : '5',
+              boxShadow : '2px 2px 2px grey'
             }}
           ></video>
         </div>
