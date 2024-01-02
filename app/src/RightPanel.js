@@ -21,6 +21,7 @@ const RightPanel = ({ totalCount = 3 }) => {
   const currCount = useSelector((state) => state.count.count);
   const isSpeaking = useSelector((state) => state.speak.value);
   const dispatch = useDispatch();
+  const [isDisable,setIsDisable] = useState(false) ;
 
   const handleSendMessage = () => {
     if (userInput.trim() !== "") {
@@ -31,6 +32,7 @@ const RightPanel = ({ totalCount = 3 }) => {
       ];
       setChatMessages(newMessages);
       setUserInput("");
+      setIsDisable(true) ;
       simulateBotResponse(newMessages, userInput);
     }
   };
@@ -59,6 +61,7 @@ const RightPanel = ({ totalCount = 3 }) => {
       ];
       setChatMessages(updatedMessages);
     }
+    setIsDisable(false) ;
     dispatch(changeSpeakValue(false));
     scrollToBottom();
   };
@@ -158,11 +161,13 @@ const RightPanel = ({ totalCount = 3 }) => {
             borderRadius: "5px",
             zIndex: 100,
           }}
-          disabled={currCount === totalCount}
+
+          disabled={isDisable || currCount===totalCount}
         />
         <Button
           variant="contained"
           onClick={handleMicBtn}
+          disabled={isDisable}
           style={{
             minWidth: 0,
             padding: "10px",
@@ -182,7 +187,7 @@ const RightPanel = ({ totalCount = 3 }) => {
         <Button
           variant="contained"
           onClick={handleSendMessage}
-          disabled={userInput.trim() === ""}
+          disabled={userInput.trim() === ""  || isDisable}
           sx={{
             minWidth: 0,
             padding: "10px",
