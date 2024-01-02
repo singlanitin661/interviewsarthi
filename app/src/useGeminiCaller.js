@@ -19,8 +19,17 @@ const GeminiCaller = async (input) => {
     const response = await result.response;
     const text = response.text();
     console.log(text) ;
+    let jsonAnswer = {
+      "Score": "5/10",
+      "Improvements": "Possible improvements in at-max 50 words",
+      "Continuations": "A valid example can be as follows: Okay, now moving on to the next question",
+      "IdealAnswer": "The ideal answer for the previous question"
+    };
+    // jsonAnswer = JSON.stringify(jsonAnswer);
+    console.log(jsonAnswer);
+    console.log(typeof jsonAnswer);
     
-  return text;
+  return jsonAnswer;
 }
 
 export default GeminiCaller;
