@@ -176,14 +176,14 @@ const RightPanel = ({ totalCount = 3 }) => {
         <Button
           variant="contained"
           onClick={handleMicBtn}
-          sx={{
+          style={{
             minWidth: 0,
             padding: "10px",
             marginRight: "10px",
             borderRadius: "5px",
             zIndex: 100,
-            backgroundColor: micbtn ? "black" : "black",
-            color: micbtn ? "white" : "white",
+            backgroundColor: "black",
+            color: "white",
           }}
         >
           {micbtn ? (

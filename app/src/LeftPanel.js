@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import CachedIcon from "@mui/icons-material/Cached";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
-import PersonIcon from "@mui/icons-material/Person";
-import zIndex from "@mui/material/styles/zIndex";
 
 const LeftPanel = () => {
+  const [show , setShow] = useState(1) ;
   useEffect(() => {
     // Accessing the camera and starting the video stream
     navigator.mediaDevices
@@ -37,6 +36,7 @@ const LeftPanel = () => {
     >
       <div className="leftContainer" style={{ padding: "10px" }}>
         <div id="imageleftContainer" style={{ margin: "0 auto",paddingTop: "50px" }}>
+        
           <img
             id="imageElement"
             src="https://png.pngtree.com/thumb_back/fh260/background/20230408/pngtree-robot-white-cute-robot-blue-light-background-image_2199825.jpg"
@@ -48,7 +48,8 @@ const LeftPanel = () => {
               zIndex : '5',
               boxShadow : '2px 2px 2px grey'
             }}
-          />
+          ></img>
+          <div className="dot-typing" style={{zIndex : 100,opacity:show}} ></div>
         </div>
         <div id="videoleftContainer" style={{ margin: "10px auto" }}>
           <video
@@ -74,7 +75,7 @@ const LeftPanel = () => {
           <Button
             variant="contained"
             className="speakBtn"
-            style={{ width: "75%", borderRadius: "5px", marginBottom: "10px" }}
+            style={{ width: "75%", borderRadius: "5px", marginBottom: "10px", backgroundColor:'black', color:'white' , fontStyle : 'bold' }}
           >
             Pardon Me
           </Button>
