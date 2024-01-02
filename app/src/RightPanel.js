@@ -39,7 +39,7 @@ const RightPanel = ({ totalCount = 3 }) => {
     setCount((prevCount) => prevCount + 1);
     dispatch(changeCountValue());
     const botResponse = await GeminiCaller(curr);
-    if (currCount === totalCount) {
+    if (currCount === totalCount-1) {
       const updatedMessages = [
         ...newMessages,
         { sender: "Bot", message: "Score : " + botResponse.score },

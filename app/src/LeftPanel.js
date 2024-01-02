@@ -9,6 +9,7 @@ const LeftPanel = () => {
   const [show, setShow] = useState(1);
   const isStarted = useSelector((state) => state.start.value);
   const dispatch = useDispatch();
+  const isSpeak = useSelector((state) => state.speak.value) ;
 
   const handleValueUpdate = () => {
     dispatch(changeStartValue(true));
@@ -61,7 +62,7 @@ const LeftPanel = () => {
           ></img>
           <div
             className="dot-typing"
-            style={{ zIndex: 100, opacity: isStarted ? 1 : 0 }}
+            style={{ zIndex: 100, opacity: isSpeak ? 1 : 0 }}
           ></div>
         </div>
         <div id="videoleftContainer" style={{ margin: "10px auto" }}>
