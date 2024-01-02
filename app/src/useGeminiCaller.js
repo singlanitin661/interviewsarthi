@@ -8,7 +8,7 @@ const generationConfig = {
   topK: 16,
 };
 const genAI = new GoogleGenerativeAI(
-  "AIzaSyDq4UVgjWhdTUcmYM84DzFQIJqXQi7qRnw",
+  'AIzaSyDq4UVgjWhdTUcmYM84DzFQIJqXQi7qRnw',
   generationConfig
 );
 
