@@ -2,13 +2,14 @@ import React, { useState, useRef, useEffect } from "react";
 import { AppBar, Button, Toolbar, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 
-const Navbar = () => {
+const Navbar = ({totalCount=3}) => {
   const [timer, setTimer] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const timerRef = useRef(null);
   const startTimeRef = useRef(0);
   const pausedTimeRef = useRef(0);
   const isStarted = useSelector((state) => state.start.value);
+  const currCount = useSelector((state) => state.count.count);
 
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60)
@@ -46,11 +47,13 @@ const Navbar = () => {
       clearInterval(timerRef.current);
       setTimer(0);
     }
-
+    if (currCount === totalCount) {
+      clearInterval(timerRef.current);
+    }
     return () => {
       clearInterval(timerRef.current);
     };
-  }, [isStarted]);
+  }, [isStarted, currCount, totalCount]);
 
   return (
     <AppBar position="fixed" style={{ backgroundColor: "black" }}>
@@ -61,7 +64,7 @@ const Navbar = () => {
             style={{ pointerEvents: "none", opacity: isStarted ? 1 : 0 }}
           >
             <Typography variant="h6" style={{ color: "#f0f1f1" }}>
-              0/3
+              {currCount}/{totalCount}
             </Typography>
           </Button>
         </div>
