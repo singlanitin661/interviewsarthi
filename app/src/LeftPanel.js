@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 const ImageOrGIF = ({ isGemini }) => {
   return (
     (isGemini ? (
-      <div style={{ maxWidth: "20vh", maxHeight: "20vh" }}>
+      <div style={{ maxWidth: "20vh", maxHeight: "20vh", paddingTop:"3px" }}>
         <iframe
           height="20vh"
           src="https://giphy.com/embed/qWLNlDMfimhXtM5g0M"
