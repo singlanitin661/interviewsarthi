@@ -1,49 +1,10 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import url('https://fonts.googleapis.com/css2?family=Comic+Sans+MS&display=swap');
 
-
 .hidden{
-  overflow: hidden;
+  /* overflow: hidden; */
 }
-.dot-typing {
-  position: relative;
-  margin-left: 48%;
-  top: -30px;
-  left: -9999px;
-  width: 10px;
-  height: 10px;
-  border-radius: 5px;
-  background-color: #797784;
-  color: #797784;
-  box-shadow: 9984px 0 0 0 #797784, 9999px 0 0 0 #797784, 10014px 0 0 0 #797784;
-  animation: dot-typing 1.5s infinite linear;
-}
-
-@keyframes dot-typing {
-  0% {
-    box-shadow: 9984px 0 0 0 #797784, 9999px 0 0 0 #797784, 10014px 0 0 0 #797784;
-  }
-  16.667% {
-    box-shadow: 9984px -10px 0 0 #797784, 9999px 0 0 0 #797784, 10014px 0 0 0 #797784;
-  }
-  33.333% {
-    box-shadow: 9984px 0 0 0 #797784, 9999px 0 0 0 #797784, 10014px 0 0 0 #797784;
-  }
-  50% {
-    box-shadow: 9984px 0 0 0 #797784, 9999px -10px 0 0 #797784, 10014px 0 0 0 #797784;
-  }
-  66.667% {
-    box-shadow: 9984px 0 0 0 #797784, 9999px 0 0 0 #797784, 10014px 0 0 0 #797784;
-  }
-  83.333% {
-    box-shadow: 9984px 0 0 0 #797784, 9999px 0 0 0 #797784, 10014px -10px 0 0 #797784;
-  }
-  100% {
-    box-shadow: 9984px 0 0 0 #797784, 9999px 0 0 0 #797784, 10014px 0 0 0 #797784;
-  }
-}
-
-
-
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';

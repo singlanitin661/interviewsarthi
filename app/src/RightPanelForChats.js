@@ -1,26 +1,20 @@
-import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
-import ChatBox from './ChatBox';
-import { useRef } from 'react';
-import useGeminiScript from "./utils/gemini/useGeminiScript"
-import { useNavigate } from 'react-router-dom';
-
-
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { addHistory, toggleGemini } from "../src/utils/gemini/geminiSlice";
+import ChatBox from "./ChatBox";
+import { useRef } from "react";
 import {
   GoogleGenerativeAI,
   HarmCategory,
   HarmBlockThreshold,
 } from "@google/generative-ai";
-const RightPanelByAryan = () => {
-    const textEntered = useRef();
-    const [interviewStarted, setInterviewStarted] = useState(false);
-    const navigate = useNavigate();
 
+const RightPanelForChats = () => {
   const history = useSelector((store) => store.gemini.history);
 
   const dispatch = useDispatch();
+  const geminiStore = useSelector((store) => store.gemini.history);
+  const textEntered = useRef();
+
   const GeminiScript = async ({ UserInput, history }) => {
     const {
       GoogleGenerativeAI,
@@ -88,7 +82,9 @@ const RightPanelByAryan = () => {
   };
 
   const handleSendText = async () => {
-    const userInput ="."
+    const userInput = textEntered.current.value;
+
+    textEntered.current.value = "";
 
     const response = await GeminiScript({
       UserInput: userInput,
@@ -106,30 +102,36 @@ const RightPanelByAryan = () => {
     dispatch(toggleGemini());
   };
 
-    const startTheInterviewFunction = ()=>{
-        setInterviewStarted(true);
-        handleSendText()
-        navigate("/interview")
-
-    }
-    if(!interviewStarted){
-        return(
-            <div className='flex items-center justify-center min-w-[80vw] h-[100vh] bg-gradient-to-r from-cyan-500 to-blue-500 hover:cursor-pointer' onClick={startTheInterviewFunction}>
-                <p>Click Anywhere to start the interview</p>
-            </div>
-        )
-    }
-    // console.log(geminiStore)
   return (
-    <div className=' flex flex-col max-width-[330px] bg-slate-400'>
-      {/* {geminiStore.map((data, index)=> <ChatBox key={index} role={data?.role} message={data?.parts[0]?.text}/>) } */}
-
-      <div className='flex'>
-        <input type='text' ref={textEntered} placeholder='Enter Your answer here' className='bg-white border-4 w-[50em] rounded-e-xl'></input>
-        <button className='bg-blue-500 rounded-full p-2 m-2'>SendText</button>
+    <div className="flex flex-col bg-gradient-to-r from-purple-500 to-pink-500 min-w-[80vw] min-h-[100vh] -mt-16 max-w-[80vw]">
+      <div className="chat flex flex-col min-h-[80vh] max-h-[80vh] overflow-auto mt-16">
+        {geminiStore.map(
+          (data, index) =>
+            index > 2 && (
+              <ChatBox
+                key={index}
+                role={data?.role}
+                message={data?.parts[0]?.text}
+              />
+            )
+        )}
+      </div>
+      <div className="flex h-[20vh] min-h-[calc(20vh-64px)] max-h-[calc(20vh-64px)] items-center justify-center">
+        <input
+          type="text"
+          ref={textEntered}
+          placeholder="Enter Your answer here"
+          className="bg-white border-4 w-[100vw] rounded-xl h-[12vh] m-4 p-2"
+        />
+        <button
+          onClick={handleSendText}
+          className="bg-blue-500 rounded-full p-2 m-2 py-6"
+        >
+          SendText
+        </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default RightPanelByAryan
+export default RightPanelForChats;

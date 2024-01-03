@@ -1,6 +1,4 @@
-// node --version # Should be >= 18
-// npm install @google/generative-ai
-import { useSelector } from "react-redux/es/hooks/useSelector";
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { addHistory, toggleGemini } from "./geminiSlice";
 
@@ -8,7 +6,7 @@ import { addHistory, toggleGemini } from "./geminiSlice";
 const useGeminiScript = ({UserInput}) => {
   const dispatch = useDispatch()
   //start the animation
-  dispatch(toggleGemini);
+  dispatch(toggleGemini());
   const history = useSelector((store) => store.gemini.history);
   const {
     GoogleGenerativeAI,
@@ -17,7 +15,8 @@ const useGeminiScript = ({UserInput}) => {
   } = require("@google/generative-ai");
 
   const MODEL_NAME = "gemini-pro";
-  const API_KEY = process.env.REACT_APP_Gemini_key;
+  const API_KEY = process.env.REACT_APP_GEMINI_KEY;
+  // console.log(API_KEY)
 
   async function runChat() {
     const genAI = new GoogleGenerativeAI(API_KEY);
@@ -65,7 +64,7 @@ const useGeminiScript = ({UserInput}) => {
     const response = result.response;
     console.log(response);
     const ModelText = response.text();
-    const jsonObject = JSON.parse(response.text())
+    // const jsonObject = JSON.parse(response.text())
 
     const jsonModel = {
       role: "model",
@@ -75,9 +74,9 @@ const useGeminiScript = ({UserInput}) => {
     dispatch(addHistory(jsonModel))
 
     //switch of the gemini.
-    dispatch(toggleGemini);
+    dispatch(toggleGemini());
 
-    return jsonObject;
+    // return jsonObject;
   }
 
   runChat();

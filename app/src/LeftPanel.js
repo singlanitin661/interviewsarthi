@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import CachedIcon from "@mui/icons-material/Cached";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
-import { useDispatch, useSelector } from "react-redux";
+import PersonIcon from "@mui/icons-material/Person";
+import zIndex from "@mui/material/styles/zIndex";
+import { useSelector } from "react-redux";
 
 const LeftPanel = () => {
-  const [show, setShow] = useState(1);
-  const dispatch = useDispatch();
-  const isSpeak = useSelector((state) => state.speak.value) ;
-
-
+  const isGemini = useSelector(store=>store.gemini.isGeminiWorking)
   useEffect(() => {
+    // Accessing the camera and starting the video stream
     navigator.mediaDevices
       .getUserMedia({ video: true })
       .then(function (stream) {
@@ -38,27 +37,44 @@ const LeftPanel = () => {
         paddingTop: "30px",
       }}
     >
-      <div className="leftContainer" style={{ padding: "10px" }}>
+      <div
+        className="flex flex-col leftContainer"
+        style={{ padding: "10px", minWidth: "20vw" }}
+      >
         <div
           id="imageleftContainer"
           style={{ margin: "0 auto", paddingTop: "50px" }}
         >
-          <img
+          {isGemini && (<div style={{ maxWidth: "20vh", maxHeight:"20vh" }}>
+          <iframe
+                  height="20vh"
+                  // src="https://giphy.com/embed/2mnoi0YXJdi2um7FTs/video"
+                  src="https://giphy.com/embed/qWLNlDMfimhXtM5g0M"
+                  style={{
+                    left: "0",
+                    position: "relative",
+                    top: "0",
+                    width: "15vw",
+                    height: "20vh",
+                  }}
+                  width="100%"
+                  title="Giphy Embed"
+                ></iframe>
+          </div>)}
+          {!isGemini && ((<img
             id="imageElement"
             src="https://png.pngtree.com/thumb_back/fh260/background/20230408/pngtree-robot-white-cute-robot-blue-light-background-image_2199825.jpg"
-            alt="Sample Image"
+            alt="Sample"
             style={{
               width: "100%",
               height: "auto",
               borderRadius: "5px",
-              zIndex: "5",
-              boxShadow: "2px 2px 2px grey",
+              zIndex : '5',
+              boxShadow : '2px 2px 2px grey'
             }}
-          ></img>
-          <div
-            className="dot-typing"
-            style={{ zIndex: 100, opacity: isSpeak ? 1 : 0 }}
-          ></div>
+          /> ))}
+          {/* */}
+          
         </div>
         <div id="videoleftContainer" style={{ margin: "10px auto" }}>
           <video
@@ -84,14 +100,7 @@ const LeftPanel = () => {
           <Button
             variant="contained"
             className="speakBtn"
-            style={{
-              width: "75%",
-              borderRadius: "5px",
-              marginBottom: "10px",
-              backgroundColor: "black",
-              color: "white",
-              fontStyle: "bold",
-            }}
+            style={{ width: "75%", borderRadius: "5px", marginBottom: "10px" }}
           >
             Pardon Me
           </Button>
