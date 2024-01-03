@@ -3,17 +3,12 @@ import { Box, Button, Typography } from "@mui/material";
 import CachedIcon from "@mui/icons-material/Cached";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import { useDispatch, useSelector } from "react-redux";
-import { changeStartValue } from "./utils/gemini/startSlice";
 
 const LeftPanel = () => {
   const [show, setShow] = useState(1);
-  const isStarted = useSelector((state) => state.start.value);
   const dispatch = useDispatch();
   const isSpeak = useSelector((state) => state.speak.value) ;
 
-  const handleValueUpdate = () => {
-    dispatch(changeStartValue(true));
-  };
 
   useEffect(() => {
     navigator.mediaDevices
@@ -89,7 +84,6 @@ const LeftPanel = () => {
           <Button
             variant="contained"
             className="speakBtn"
-            onClick={handleValueUpdate}
             style={{
               width: "75%",
               borderRadius: "5px",

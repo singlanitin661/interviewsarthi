@@ -13,7 +13,11 @@ const RightPanel = ({ totalCount = 3 }) => {
   const [micbtn, setMicbtn] = useState(false);
   const [count, setCount] = useState(1);
   const [chatMessages, setChatMessages] = useState([
-    { sender: "Bot", message: "Introduce Yourself!" },
+    {
+      sender: "Bot",
+      message:
+        "Hey User! I am interviewsarthi bot and will assist you in this interview. Let's start with Introduction. Give me brief about yourself!",
+    },
   ]);
   const [userInput, setUserInput] = useState("");
   const [recording, setRecording] = useState(false);
@@ -21,7 +25,7 @@ const RightPanel = ({ totalCount = 3 }) => {
   const currCount = useSelector((state) => state.count.count);
   const isSpeaking = useSelector((state) => state.speak.value);
   const dispatch = useDispatch();
-  const [isDisable,setIsDisable] = useState(false) ;
+  const [isDisable, setIsDisable] = useState(false);
 
   const handleSendMessage = () => {
     if (userInput.trim() !== "") {
@@ -32,7 +36,7 @@ const RightPanel = ({ totalCount = 3 }) => {
       ];
       setChatMessages(newMessages);
       setUserInput("");
-      setIsDisable(true) ;
+      setIsDisable(true);
       simulateBotResponse(newMessages, userInput);
     }
   };
@@ -41,7 +45,7 @@ const RightPanel = ({ totalCount = 3 }) => {
     setCount((prevCount) => prevCount + 1);
     dispatch(changeCountValue());
     const botResponse = await GeminiCaller(curr);
-    if (currCount === totalCount-1) {
+    if (currCount === totalCount - 1) {
       const updatedMessages = [
         ...newMessages,
         { sender: "Bot", message: "Score : " + botResponse.score },
@@ -61,7 +65,7 @@ const RightPanel = ({ totalCount = 3 }) => {
       ];
       setChatMessages(updatedMessages);
     }
-    setIsDisable(false) ;
+    setIsDisable(false);
     dispatch(changeSpeakValue(false));
     scrollToBottom();
   };
@@ -97,7 +101,6 @@ const RightPanel = ({ totalCount = 3 }) => {
     const chunks = [];
     chunks.push(event.data);
     const blob = new Blob(chunks, { type: "audio/wav" });
-    // You can send the recorded audio blob to your server for processing if needed
     console.log("Recorded audio blob:", blob);
   };
 
@@ -161,8 +164,7 @@ const RightPanel = ({ totalCount = 3 }) => {
             borderRadius: "5px",
             zIndex: 100,
           }}
-
-          disabled={isDisable || currCount===totalCount}
+          disabled={isDisable || currCount === totalCount}
         />
         <Button
           variant="contained"
@@ -187,7 +189,7 @@ const RightPanel = ({ totalCount = 3 }) => {
         <Button
           variant="contained"
           onClick={handleSendMessage}
-          disabled={userInput.trim() === ""  || isDisable}
+          disabled={userInput.trim() === "" || isDisable}
           sx={{
             minWidth: 0,
             padding: "10px",
