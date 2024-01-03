@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector , useDispatch } from 'react-redux'
 import ChatBox from './ChatBox';
 import { useRef } from 'react';
 import useGeminiScript from "./utils/gemini/useGeminiScript"
 import { useNavigate } from 'react-router-dom';
-
-
-import { useDispatch } from "react-redux";
 import { addHistory, toggleGemini } from "../src/utils/gemini/geminiSlice";
+import { changeStartValue } from "../src/utils/gemini/startSlice";
 import {
   GoogleGenerativeAI,
   HarmCategory,
@@ -17,10 +15,10 @@ const RightPanelByAryan = () => {
     const textEntered = useRef();
     const [interviewStarted, setInterviewStarted] = useState(false);
     const navigate = useNavigate();
+  const isStarted = useSelector((state) => state.start.value);
+  const dispatch = useDispatch();
 
   const history = useSelector((store) => store.gemini.history);
-
-  const dispatch = useDispatch();
   const GeminiScript = async ({ UserInput, history }) => {
     const {
       GoogleGenerativeAI,
@@ -108,7 +106,8 @@ const RightPanelByAryan = () => {
 
     const startTheInterviewFunction = ()=>{
         setInterviewStarted(true);
-        handleSendText()
+        handleSendText();
+        dispatch(changeStartValue(true));
         navigate("/interview")
 
     }
