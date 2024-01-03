@@ -30,7 +30,7 @@ const geminiSlice = createSlice({
             state.history.push(action.payload);
         }, 
         toggleGemini:(state)=>{
-            state.isGeminiWorking = !state.isGeminiWorking
+            state.isGeminiWorking = !state.isGeminiWorking;
         }
     }
 })

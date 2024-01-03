@@ -2,12 +2,47 @@ import React, { useEffect } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import CachedIcon from "@mui/icons-material/Cached";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
-import PersonIcon from "@mui/icons-material/Person";
-import zIndex from "@mui/material/styles/zIndex";
 import { useSelector } from "react-redux";
+
+const ImageOrGIF = ({ isGemini }) => {
+  return (
+    (isGemini ? (
+      <div style={{ maxWidth: "20vh", maxHeight: "20vh" }}>
+        <iframe
+          height="20vh"
+          src="https://giphy.com/embed/qWLNlDMfimhXtM5g0M"
+          style={{
+            left: "0",
+            position: "relative",
+            top: "0",
+            width: "15vw",
+            height: "20vh",
+          }}
+          width="100%"
+          title="Giphy Embed"
+        ></iframe>
+      </div>
+    ) : (
+      <img
+        id="imageElement"
+        src="https://png.pngtree.com/thumb_back/fh260/background/20230408/pngtree-robot-white-cute-robot-blue-light-background-image_2199825.jpg"
+        alt="Sample"
+        style={{
+          width: "100%",
+          height: "auto",
+          borderRadius: "5px",
+          zIndex: "5",
+          boxShadow: "2px 2px 2px grey",
+        }}
+      />
+    ))
+  );
+};
+
 
 const LeftPanel = () => {
   const isGemini = useSelector(store=>store.gemini.isGeminiWorking)
+  console.log(isGemini);
   useEffect(() => {
     // Accessing the camera and starting the video stream
     navigator.mediaDevices
@@ -45,36 +80,7 @@ const LeftPanel = () => {
           id="imageleftContainer"
           style={{ margin: "0 auto", paddingTop: "50px" }}
         >
-          {isGemini && (<div style={{ maxWidth: "20vh", maxHeight:"20vh" }}>
-          <iframe
-                  height="20vh"
-                  // src="https://giphy.com/embed/2mnoi0YXJdi2um7FTs/video"
-                  src="https://giphy.com/embed/qWLNlDMfimhXtM5g0M"
-                  style={{
-                    left: "0",
-                    position: "relative",
-                    top: "0",
-                    width: "15vw",
-                    height: "20vh",
-                  }}
-                  width="100%"
-                  title="Giphy Embed"
-                ></iframe>
-          </div>)}
-          {!isGemini && ((<img
-            id="imageElement"
-            src="https://png.pngtree.com/thumb_back/fh260/background/20230408/pngtree-robot-white-cute-robot-blue-light-background-image_2199825.jpg"
-            alt="Sample"
-            style={{
-              width: "100%",
-              height: "auto",
-              borderRadius: "5px",
-              zIndex : '5',
-              boxShadow : '2px 2px 2px grey'
-            }}
-          /> ))}
-          {/* */}
-          
+          <ImageOrGIF isGemini={isGemini}/>          
         </div>
         <div id="videoleftContainer" style={{ margin: "10px auto" }}>
           <video
