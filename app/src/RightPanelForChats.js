@@ -1,7 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
 import { addHistory, toggleGemini } from "../src/utils/gemini/geminiSlice";
 import ChatBox from "./ChatBox";
-import { useRef } from "react";
+import React , { useRef } from "react";
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import SendIcon from '@mui/icons-material/Send';
 import {
   GoogleGenerativeAI,
   HarmCategory,
@@ -103,34 +107,37 @@ const RightPanelForChats = () => {
   };
 
   return (
-    <div className="flex flex-col bg-gradient-to-r from-purple-500 to-pink-500 min-w-[80vw] min-h-[100vh] -mt-16 max-w-[80vw]">
-      <div className="chat flex flex-col min-h-[80vh] max-h-[80vh] overflow-auto mt-16">
-        {geminiStore.map(
-          (data, index) =>
-            index > 2 && (
-              <ChatBox
-                key={index}
-                role={data?.role}
-                message={data?.parts[0]?.text}
-              />
-            )
-        )}
-      </div>
-      <div className="flex h-[20vh] min-h-[calc(20vh-64px)] max-h-[calc(20vh-64px)] items-center justify-center">
-        <input
-          type="text"
-          ref={textEntered}
-          placeholder="Enter Your answer here"
-          className="bg-white border-4 w-[100vw] rounded-xl h-[12vh] m-4 p-2"
-        />
-        <button
-          onClick={handleSendText}
-          className="bg-blue-500 rounded-full p-2 m-2 py-6"
-        >
-          SendText
-        </button>
-      </div>
-    </div>
+  <div className="bg-[#f0f1f1]">
+   <div className="flex flex-col bg-white min-w-[80vw] min-h-[80vh] -mt-16 max-w-[80vw]">
+        <div className="chat flex flex-col min-h-[80vh] max-h-[80vh] overflow-auto mt-16">
+          {geminiStore.map(
+            (data, index) =>
+                index > 2 && (
+                    <ChatBox
+                        key={index}
+                        role={data?.role}
+                        message={data?.parts[0]?.text}
+                    />
+                )
+            )}
+        </div>
+        </div>
+        <div className="flex p-3 items-center justify-center bg-[#f0f1f1]">
+          <TextField
+            fullWidth
+            type="text"
+            inputRef={textEntered}
+            label="Type your answer"
+          />
+          <button
+            size="large"
+            className="py-4 px-5 pb-3 ml-2 mr-2 rounded-md bg-black text-white  transition duration-300 ease-in-out hover:text-gray-400"
+            onClick={handleSendText}
+          >
+            <SendIcon/>
+          </button>
+        </div>
+     </div>
   );
 };
 
