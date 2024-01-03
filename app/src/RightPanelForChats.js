@@ -85,6 +85,7 @@ const RightPanelForChats = () => {
     return runChat({ UserInput: UserInput, history: history });
   };
 
+
   const handleSendText = async () => {
     const userInput = textEntered.current.value;
 
@@ -105,6 +106,12 @@ const RightPanelForChats = () => {
     dispatch(addHistory(response));
     dispatch(toggleGemini());
   };
+  const handleKeyPress = (event) => {
+          if (event.key === "Enter") {
+            event.preventDefault();
+            handleSendText();
+          }
+        };
 
   return (
   <div className="bg-[#f0f1f1]">
@@ -127,6 +134,7 @@ const RightPanelForChats = () => {
             fullWidth
             type="text"
             inputRef={textEntered}
+            onKeyPress={handleKeyPress}
             label="Type your answer"
           />
           <button
