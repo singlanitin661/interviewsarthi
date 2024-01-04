@@ -1,11 +1,15 @@
 import { useSelector, useDispatch } from "react-redux";
-import { addHistory, toggleGemini,toggleGemini2 } from "../utils/gemini/geminiSlice";
+import {
+  addHistory,
+  toggleGemini,
+  toggleGemini2,
+} from "../utils/gemini/geminiSlice";
 import ChatBox from "./ChatBox";
 import React, { useRef, useEffect } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import SendIcon from "@mui/icons-material/Send";
 import { changeCountValue } from "../utils/gemini/countSlice";
 import {
@@ -14,11 +18,11 @@ import {
   HarmBlockThreshold,
 } from "@google/generative-ai";
 
-const RightPanelForChats = ({totalCount=3}) => {
+const RightPanelForChats = ({ totalCount = 4 }) => {
+  console.log("RIGHT-PANEL RE-RENDERED.")
   const history = useSelector((store) => store.gemini.history);
   const currCount = useSelector((state) => state.count.count);
   const dispatch = useDispatch();
-  const geminiStore = useSelector((store) => store.gemini.history);
   const textEntered = useRef();
   const navigate = useNavigate();
   const chatContainerRef = useRef(null);
@@ -33,7 +37,7 @@ const RightPanelForChats = ({totalCount=3}) => {
     const API_KEY = process.env.REACT_APP_GEMINI_KEY;
 
     async function runChat({ UserInput, history }) {
-      console.log(history);
+      // console.log(history);
       console.log(UserInput);
       const genAI = new GoogleGenerativeAI(API_KEY);
       const model = genAI.getGenerativeModel({ model: MODEL_NAME });
@@ -86,10 +90,10 @@ const RightPanelForChats = ({totalCount=3}) => {
   const handleSendText = async () => {
     const userInput = textEntered.current.value;
     textEntered.current.value = "";
-    dispatch(changeCountValue());
+    // totalCount--;
+    // console.log(totalCount);
 
     dispatch(toggleGemini());
-    
 
     const response = await GeminiScript({
       UserInput: userInput,
@@ -99,9 +103,11 @@ const RightPanelForChats = ({totalCount=3}) => {
       role: "user",
       parts: [{ text: userInput }],
     };
+    if(response?.parts[0]?.text.includes("Score")){ dispatch(changeCountValue());  }
+
     dispatch(addHistory(jsonUser));
-        dispatch(addHistory(response));
-        dispatch(toggleGemini());
+    dispatch(addHistory(response));
+    dispatch(toggleGemini());
   };
 
   const handleKeyPress = (event) => {
@@ -112,15 +118,15 @@ const RightPanelForChats = ({totalCount=3}) => {
   };
   useEffect(() => {
     chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-    }, [geminiStore]);
+  }, [history]);
   return (
     <div className="bg-[#f0f1f1]">
       <div className="flex flex-col bg-white min-w-[80vw] min-h-[80vh] -mt-16 max-w-[80vw]">
         <div
           ref={chatContainerRef}
-            className="chat flex flex-col hide-scrollbar min-h-[80vh] max-h-[80vh] overflow-auto mt-16"
-                  >
-          {geminiStore.map(
+          className="chat flex flex-col hide-scrollbar min-h-[80vh] max-h-[80vh] overflow-auto mt-16"
+        >
+          {history.map(
             (data, index) =>
               index > 2 && (
                 <ChatBox
@@ -132,37 +138,37 @@ const RightPanelForChats = ({totalCount=3}) => {
           )}
         </div>
       </div>
-      {(currCount === totalCount) ? (
-                     <div className="flex p-3 items-center justify-center bg-[#f0f1f1]">
-                              <Button
-                                variant="contained"
-                                color="primary"
-                                size="large"
-                                onClick={() => navigate('/report')}
-                              >
-                                Go to Report
-                              </Button>
-                            </div>
-                  ) : (
-                    <div className="flex p-3 items-center justify-center bg-[#f0f1f1]">
-                      <TextField
-                        fullWidth
-                        type="text"
-                        inputRef={textEntered}
-                        onKeyPress={handleKeyPress}
-                        label="Type your answer"
-                      />
-                      <button
-                        size="large"
-                        className="py-4 px-5 pb-3 ml-2 mr-2 rounded-md bg-black text-white  transition duration-300 ease-in-out hover:text-gray-400"
-                        onClick={handleSendText}
-                      >
-                        <SendIcon />
-                      </button>
-                    </div>
-                  )}
-                </div>
-              );
-            };
+      {currCount >= totalCount ? (
+        <div className="flex p-3 items-center justify-center bg-[#f0f1f1]">
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            onClick={() => navigate("/report")}
+          >
+            Go to Report
+          </Button>
+        </div>
+      ) : (
+        <div className="flex p-3 items-center justify-center bg-[#f0f1f1]">
+          <TextField
+            fullWidth
+            type="text"
+            inputRef={textEntered}
+            onKeyPress={handleKeyPress}
+            label="Type your answer"
+          />
+          <button
+            size="large"
+            className="py-4 px-5 pb-3 ml-2 mr-2 rounded-md bg-black text-white  transition duration-300 ease-in-out hover:text-gray-400"
+            onClick={handleSendText}
+          >
+            <SendIcon />
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default RightPanelForChats;

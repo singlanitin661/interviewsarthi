@@ -1,13 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const ChatBox = ({ role, message }) => {
-  const [continuationMessage, setcontinuationMessage] = useState(
-    "Error in parsing json"
-  );
+  // console.log("chat-box re-rendered")
+  const [continuationMessage, setcontinuationMessage] = useState("Error in parsing json");
   const [improvMessage, setImprovMessage] = useState("Error in parsing json");
-  const [questionMessage, setQuestionMessage] = useState(
-    "Error in parsing json"
-  );
+  const [questionMessage, setQuestionMessage] = useState("Error in parsing json");
+  console.log(message)
+  useEffect(()=>{
+    const convertToJSON = async (message) => {
+      return JSON.parse(message);
+    };
+    if(role==="user") return;
+  
+    convertToJSON(message)
+      .then((res) => {
+        // console.log(res);
+        setcontinuationMessage(res["Continuations"]);
+        setImprovMessage(res["Improvements"]);
+        setQuestionMessage(res["Question"]);
+        // console.log(res["Score"])
+        // console.log(continuationMessage);
+        // console.log(improvMessage);
+        // console.log(questionMessage);
+      })
+      .catch((error) => {
+        console.error("Error parsing JSON:",message, error);
+      });
+  }, [])
   if (role === "user") {
     return (
       <div className="inline-block my-2  ml-[30vw] mr-[10vw] rounded-lg">
@@ -19,25 +38,9 @@ const ChatBox = ({ role, message }) => {
       </div>
     );
   }
-  console.log(message);
+  // console.log(message);
   // console.log(role)
-  const convertToJSON = async (message) => {
-    return JSON.parse(message);
-  };
-
-  convertToJSON(message)
-    .then((res) => {
-      console.log(res);
-      setcontinuationMessage(res["Continuations"]);
-      setImprovMessage(res["Improvements"]);
-      setQuestionMessage(res["Question"]);
-      console.log(continuationMessage);
-      console.log(improvMessage);
-      console.log(questionMessage);
-    })
-    .catch((error) => {
-      console.error("Error parsing JSON:", error);
-    });
+  
   return (
     <div className="inline-block mr-[30vw] ml-[10vw] bg-[#5aa9e6] rounded-lg">
       {improvMessage !== "Error in parsing json" && improvMessage && (
@@ -66,4 +69,17 @@ const ChatBox = ({ role, message }) => {
   );
 };
 
+
+
 export default ChatBox;
+
+
+// const ChatBox = ({role, message}) => {
+  // console.log("chatbox")
+  // return (
+    // <div>
+      {/* <p>{message}</p> */}
+    {/* </div> */}
+  // )
+// }
+// 

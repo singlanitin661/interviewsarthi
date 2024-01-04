@@ -43,7 +43,7 @@ const ImageOrGIF = ({ isGemini }) => {
 
 const LeftPanel = () => {
   const isGemini = useSelector(store=>store.gemini.isGeminiWorking)
-  console.log(isGemini);
+  // console.log(isGemini);
   useEffect(() => {
     // Accessing the camera and starting the video stream
     navigator.mediaDevices
