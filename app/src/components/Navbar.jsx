@@ -64,13 +64,13 @@ const Navbar = ({ totalCount = 3 }) => {
     <div className="fixed top-0 left-0 w-full bg-black text-xl text-white hover:cursor-pointer" onClick={takeMeToHome}>
       <div className="flex justify-center align-center py-4">
         <button>
-          <h6
-            className={`${isStarted ? "" : "hidden"}`}
-          >{`${currCount}/${totalCount}`}</h6>
+          <h6 className={`w-[50px] ${isStarted ? "" : "hidden"}`}>
+            {`${currCount}/${totalCount}`}
+          </h6>
         </button>
-        <h6 className="font-bold ml-[35vw] mr-[35vw]">InterviewSarthi</h6>
+        <h6 className="font-bold ml-[35vw] mr-[35vw]"> InterviewSarthi </h6>
         <button>
-          <h6 className={`${isStarted ? "" : "hidden"}`}>
+          <h6 className={`w-[50px] ${isStarted ? "" : "hidden"}`}>
             {formatTime(timer)}
           </h6>
         </button>
