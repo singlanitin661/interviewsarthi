@@ -6,36 +6,37 @@ import { useSelector } from "react-redux";
 
 const ImageOrGIF = ({ isGemini }) => {
   return (
-    (isGemini ? (
-      <div style={{ maxWidth: "20vh", maxHeight: "20vh", paddingTop:"3px" }}>
-        <iframe
-          height="20vh"
-          src="https://giphy.com/embed/qWLNlDMfimhXtM5g0M"
-          style={{
-            left: "0",
-            position: "relative",
-            top: "0",
-            width: "15vw",
-            height: "20vh",
-          }}
-          width="100%"
-          title="Giphy Embed"
-        ></iframe>
-      </div>
-    ) : (
-      <img
-        id="imageElement"
-        src="https://png.pngtree.com/thumb_back/fh260/background/20230408/pngtree-robot-white-cute-robot-blue-light-background-image_2199825.jpg"
-        alt="Sample"
+  <div style={{ position: 'relative' }}>
+    <img
+      id="imageElement"
+      src="https://png.pngtree.com/thumb_back/fh260/background/20230408/pngtree-robot-white-cute-robot-blue-light-background-image_2199825.jpg"
+      alt="Sample"
+      style={{
+        width: '100%',
+        height: 'auto',
+        borderRadius: '5px',
+        zIndex: '5',
+        boxShadow: '2px 2px 2px grey',
+      }}
+    />
+
+    {isGemini && (
+      <iframe
+        src="https://giphy.com/embed/qWLNlDMfimhXtM5g0M"
         style={{
-          width: "100%",
-          height: "auto",
-          borderRadius: "5px",
-          zIndex: "5",
-          boxShadow: "2px 2px 2px grey",
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          borderRadius: '5px',
+          zIndex: '10',
         }}
-      />
-    ))
+        title="Giphy Embed"
+      ></iframe>
+    )}
+  </div>
+
   );
 };
 

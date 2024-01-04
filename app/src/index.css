@@ -11,3 +11,26 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Set the width and background color of the scrollbar track */
+::-webkit-scrollbar {
+    height: 5px; /* Set the height of the scrollbar */
+    background-color: black; /* Set the background color of the scrollbar track */
+    width: 0px;
+  }
+
+  /* Set the color and height of the scrollbar thumb */
+  ::-webkit-scrollbar-thumb {
+    background-color: grey; /* Set the color of the scrollbar thumb */
+    border-radius: 2px; /* Set the border radius to make it slightly rounded */
+  }
+
+  /* Increase the height of the thumb on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    height: 15px; /* Set the increased height on hover */
+    background-color: red;
+  }
+
+  body {
+    overflow-y: auto;
+   }

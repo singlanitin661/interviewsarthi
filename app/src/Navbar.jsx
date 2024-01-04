@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 
-const Navbar = ({totalCount=3}) => {
+const Navbar = ({ totalCount = 3 }) => {
   const [timer, setTimer] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const timerRef = useRef(null);
@@ -46,7 +46,7 @@ const Navbar = ({totalCount=3}) => {
       clearInterval(timerRef.current);
       setTimer(0);
     }
-    if (currCount === totalCount) {
+    if (currCount === totalCount + 1) {
       clearInterval(timerRef.current);
     }
     return () => {
@@ -57,12 +57,16 @@ const Navbar = ({totalCount=3}) => {
   return (
     <div className="fixed top-0 left-0 w-full bg-black text-xl text-white">
       <div className="flex justify-center align-center py-4">
-        <button >
-            <h6 className={`${isStarted? '' : 'hidden'}`} >{`${currCount}/${totalCount}`}</h6>
+        <button>
+          <h6
+            className={`${isStarted ? "" : "hidden"}`}
+          >{`${currCount}/${totalCount}`}</h6>
         </button>
         <h6 className="font-bold ml-[35vw] mr-[35vw]">InterviewSarthi</h6>
-        <button >
-          <h6 className={`${isStarted? '' : 'hidden'}`}>{formatTime(timer)}</h6>
+        <button>
+          <h6 className={`${isStarted ? "" : "hidden"}`}>
+            {formatTime(timer)}
+          </h6>
         </button>
       </div>
     </div>

@@ -1,11 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
 import { addHistory, toggleGemini } from "../src/utils/gemini/geminiSlice";
 import ChatBox from "./ChatBox";
-import React , { useRef } from "react";
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import SendIcon from '@mui/icons-material/Send';
+import React, { useRef, useEffect } from "react";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import SendIcon from "@mui/icons-material/Send";
+import { changeCountValue } from "../src/utils/gemini/countSlice";
 import {
   GoogleGenerativeAI,
   HarmCategory,
@@ -18,7 +19,7 @@ const RightPanelForChats = () => {
   const dispatch = useDispatch();
   const geminiStore = useSelector((store) => store.gemini.history);
   const textEntered = useRef();
-
+  const chatContainerRef = useRef(null);
   const GeminiScript = async ({ UserInput, history }) => {
     const {
       GoogleGenerativeAI,
@@ -85,18 +86,18 @@ const RightPanelForChats = () => {
     return runChat({ UserInput: UserInput, history: history });
   };
 
-
   const handleSendText = async () => {
     const userInput = textEntered.current.value;
 
+    dispatch(toggleGemini());
     textEntered.current.value = "";
+
 
     const response = await GeminiScript({
       UserInput: userInput,
       history: history,
     });
 
-    dispatch(toggleGemini());
     const jsonUser = {
       role: "user",
       parts: [{ text: userInput }],
@@ -105,47 +106,54 @@ const RightPanelForChats = () => {
 
     dispatch(addHistory(response));
     dispatch(toggleGemini());
+    dispatch(changeCountValue());
   };
   const handleKeyPress = (event) => {
-          if (event.key === "Enter") {
-            event.preventDefault();
-            handleSendText();
-          }
-        };
-
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handleSendText();
+    }
+  };
+  useEffect(() => {
+    // Scroll to the bottom of the chat container when geminiStore changes
+    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }, [geminiStore]);
   return (
-  <div className="bg-[#f0f1f1]">
-   <div className="flex flex-col bg-white min-w-[80vw] min-h-[80vh] -mt-16 max-w-[80vw]">
-        <div className="chat flex flex-col min-h-[80vh] max-h-[80vh] overflow-auto mt-16">
+    <div className="bg-[#f0f1f1]">
+      <div className="flex flex-col bg-white min-w-[80vw] min-h-[80vh] -mt-16 max-w-[80vw]">
+        <div
+          ref={chatContainerRef}
+            className="chat flex flex-col hide-scrollbar min-h-[80vh] max-h-[80vh] overflow-auto mt-16"
+                  >
           {geminiStore.map(
             (data, index) =>
-                index > 2 && (
-                    <ChatBox
-                        key={index}
-                        role={data?.role}
-                        message={data?.parts[0]?.text}
-                    />
-                )
-            )}
+              index > 2 && (
+                <ChatBox
+                  key={index}
+                  role={data?.role}
+                  message={data?.parts[0]?.text}
+                />
+              )
+          )}
         </div>
-        </div>
-        <div className="flex p-3 items-center justify-center bg-[#f0f1f1]">
-          <TextField
-            fullWidth
-            type="text"
-            inputRef={textEntered}
-            onKeyPress={handleKeyPress}
-            label="Type your answer"
-          />
-          <button
-            size="large"
-            className="py-4 px-5 pb-3 ml-2 mr-2 rounded-md bg-black text-white  transition duration-300 ease-in-out hover:text-gray-400"
-            onClick={handleSendText}
-          >
-            <SendIcon/>
-          </button>
-        </div>
-     </div>
+      </div>
+      <div className="flex p-3 items-center justify-center bg-[#f0f1f1]">
+        <TextField
+          fullWidth
+          type="text"
+          inputRef={textEntered}
+          onKeyPress={handleKeyPress}
+          label="Type your answer"
+        />
+        <button
+          size="large"
+          className="py-4 px-5 pb-3 ml-2 mr-2 rounded-md bg-black text-white  transition duration-300 ease-in-out hover:text-gray-400"
+          onClick={handleSendText}
+        >
+          <SendIcon />
+        </button>
+      </div>
+    </div>
   );
 };
 
