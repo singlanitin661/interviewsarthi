@@ -1,16 +1,9 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useRef } from "react";
-import useGeminiScript from "../utils/gemini/useGeminiScript";
 import { useNavigate } from "react-router-dom";
-import { addHistory, toggleGemini } from "../utils/gemini/geminiSlice";
 import { changeStartValue } from "../utils/gemini/startSlice";
 import { changeCountValue } from "../utils/gemini/countSlice";
-import {
-  GoogleGenerativeAI,
-  HarmCategory,
-  HarmBlockThreshold,
-} from "@google/generative-ai";
 const RightPanelByAryan = () => {
   const textEntered = useRef();
   const [interviewStarted, setInterviewStarted] = useState(false);
