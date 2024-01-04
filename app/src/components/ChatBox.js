@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { changeCountValue } from "../utils/gemini/countSlice";
 
-const ChatBox = ({ role, message }) => {
+const ChatBox = ({ role, message , totalCount = 3}) => {
+const currCount = useSelector((state) => state.count.count);
   console.log(message);
   // console.log(role)
   const convertToJSON = async (message) => {
@@ -29,11 +32,11 @@ const ChatBox = ({ role, message }) => {
   return (
     <div className="inline-block w-auto h-auto">
       {improvMessage !== "Error in parsing json" && improvMessage && (
-        <p className="shadow-md my-2 p-4 rounded-lg bg-green-200 mr-[30vw] ml-[10vw]">
-          {improvMessage}
-        </p>
-      )}
-  
+              <p className="shadow-md my-2 p-4 rounded-lg bg-green-200 mr-[30vw] ml-[10vw]">
+                {improvMessage}
+              </p>
+            )}
+
       {(role === "user" || (continuationMessage && continuationMessage !== "Error in parsing json")) && (
         <p
           className={

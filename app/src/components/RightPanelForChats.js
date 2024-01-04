@@ -5,6 +5,7 @@ import React, { useRef, useEffect } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { useNavigate } from 'react-router-dom';
 import SendIcon from "@mui/icons-material/Send";
 import { changeCountValue } from "../utils/gemini/countSlice";
 import {
@@ -13,12 +14,13 @@ import {
   HarmBlockThreshold,
 } from "@google/generative-ai";
 
-const RightPanelForChats = () => {
+const RightPanelForChats = ({totalCount=3}) => {
   const history = useSelector((store) => store.gemini.history);
-
+  const currCount = useSelector((state) => state.count.count);
   const dispatch = useDispatch();
   const geminiStore = useSelector((store) => store.gemini.history);
   const textEntered = useRef();
+  const navigate = useNavigate();
   const chatContainerRef = useRef(null);
   const GeminiScript = async ({ UserInput, history }) => {
     const {
@@ -81,23 +83,6 @@ const RightPanelForChats = () => {
 
     return runChat({ UserInput: UserInput, history: history });
   };
-  // useEffect(()=>{
-  //   async function temp(){
-  //     dispatch(toggleGemini2(true));
-  //     const response = await GeminiScript({
-  //       UserInput: ".",
-  //       history: history,
-  //     });
-  //     const jsonUser = {
-  //       role: "user",
-  //       parts: [{ text: "." }],
-  //     };
-  //     dispatch(addHistory(jsonUser))
-  //     dispatch(addHistory(response));
-  //     dispatch(toggleGemini2(false));
-  //   }
-  //   temp();
-  // }, [])
   const handleSendText = async () => {
     const userInput = textEntered.current.value;
     textEntered.current.value = "";
@@ -114,10 +99,10 @@ const RightPanelForChats = () => {
       role: "user",
       parts: [{ text: userInput }],
     };
-    dispatch(addHistory(jsonUser));    
-
-    dispatch(addHistory(response));
-    dispatch(toggleGemini());
+    dispatch(addHistory(jsonUser));
+        dispatch(addHistory(response));
+        dispatch(toggleGemini());
+        dispatch(changeCountValue());
   };
 
   const handleKeyPress = (event) => {
@@ -148,24 +133,37 @@ const RightPanelForChats = () => {
           )}
         </div>
       </div>
-      <div className="flex p-3 items-center justify-center bg-[#f0f1f1]">
-        <TextField
-          fullWidth
-          type="text"
-          inputRef={textEntered}
-          onKeyPress={handleKeyPress}
-          label="Type your answer"
-        />
-        <button
-          size="large"
-          className="py-4 px-5 pb-3 ml-2 mr-2 rounded-md bg-black text-white  transition duration-300 ease-in-out hover:text-gray-400"
-          onClick={handleSendText}
-        >
-          <SendIcon />
-        </button>
-      </div>
-    </div>
-  );
-};
+      {(currCount === totalCount) ? (
+                     <div className="flex p-3 items-center justify-center bg-[#f0f1f1]">
+                              <Button
+                                variant="contained"
+                                color="primary"
+                                size="large"
+                                onClick={() => navigate('/report')}
+                              >
+                                Go to Report
+                              </Button>
+                            </div>
+                  ) : (
+                    <div className="flex p-3 items-center justify-center bg-[#f0f1f1]">
+                      <TextField
+                        fullWidth
+                        type="text"
+                        inputRef={textEntered}
+                        onKeyPress={handleKeyPress}
+                        label="Type your answer"
+                      />
+                      <button
+                        size="large"
+                        className="py-4 px-5 pb-3 ml-2 mr-2 rounded-md bg-black text-white  transition duration-300 ease-in-out hover:text-gray-400"
+                        onClick={handleSendText}
+                      >
+                        <SendIcon />
+                      </button>
+                    </div>
+                  )}
+                </div>
+              );
+            };
 
 export default RightPanelForChats;
