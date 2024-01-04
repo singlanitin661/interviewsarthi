@@ -102,7 +102,6 @@ const RightPanelForChats = ({totalCount=3}) => {
     dispatch(addHistory(jsonUser));
         dispatch(addHistory(response));
         dispatch(toggleGemini());
-        dispatch(changeCountValue());
   };
 
   const handleKeyPress = (event) => {

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { changeCountValue } from "../utils/gemini/countSlice";
 
 const ChatBox = ({ role, message , totalCount = 3}) => {
 const currCount = useSelector((state) => state.count.count);
