@@ -1,0 +1,8 @@
+- Total/avergaed Score out of 20
+    - Status (passed/failed based on the criteria)
+    - Line chart of scores through out the interview
+- Scope of Improvement
+- Week-points
+- Strong-points
+- Feedbacks/Interviewers-comment
+- Rating for the candidate

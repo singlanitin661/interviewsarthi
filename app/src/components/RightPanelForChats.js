@@ -103,7 +103,7 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
       role: "user",
       parts: [{ text: userInput }],
     };
-    if(response?.parts[0]?.text.includes("Score")){ dispatch(changeCountValue());  }
+    if(response?.parts[0]?.text.includes("Score") && !response?.parts[0]?.text.includes("\"Score\" : null,")){ dispatch(changeCountValue());  }
 
     dispatch(addHistory(jsonUser));
     dispatch(addHistory(response));
