@@ -81,23 +81,23 @@ const RightPanelForChats = () => {
 
     return runChat({ UserInput: UserInput, history: history });
   };
-  useEffect(()=>{
-    async function temp(){
-      dispatch(toggleGemini2(true));
-      const response = await GeminiScript({
-        UserInput: ".",
-        history: history,
-      });
-      const jsonUser = {
-        role: "user",
-        parts: [{ text: "." }],
-      };
-      dispatch(addHistory(jsonUser))
-      dispatch(addHistory(response));
-      dispatch(toggleGemini2(false));
-    }
-    temp();
-  }, [])
+  // useEffect(()=>{
+  //   async function temp(){
+  //     dispatch(toggleGemini2(true));
+  //     const response = await GeminiScript({
+  //       UserInput: ".",
+  //       history: history,
+  //     });
+  //     const jsonUser = {
+  //       role: "user",
+  //       parts: [{ text: "." }],
+  //     };
+  //     dispatch(addHistory(jsonUser))
+  //     dispatch(addHistory(response));
+  //     dispatch(toggleGemini2(false));
+  //   }
+  //   temp();
+  // }, [])
   const handleSendText = async () => {
     const userInput = textEntered.current.value;
     textEntered.current.value = "";
