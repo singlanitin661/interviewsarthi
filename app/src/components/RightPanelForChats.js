@@ -29,10 +29,8 @@ const RightPanelForChats = () => {
 
     const MODEL_NAME = "gemini-pro";
     const API_KEY = process.env.REACT_APP_GEMINI_KEY;
-    // console.log(API_KEY)
 
     async function runChat({ UserInput, history }) {
-      // history = history.pop();
       console.log(history);
       console.log(UserInput);
       const genAI = new GoogleGenerativeAI(API_KEY);
@@ -69,18 +67,15 @@ const RightPanelForChats = () => {
         safetySettings,
         history,
       });
-      //   console.log(UserInput)
       const result = await chat.sendMessage(UserInput);
 
       const response = result.response;
-      //   console.log(response);
       const ModelText = response.text();
 
       const jsonModel = {
         role: "model",
         parts: [{ text: ModelText }],
       };
-      //   console.log(jsonModel);
       return jsonModel;
     }
 
@@ -104,11 +99,9 @@ const RightPanelForChats = () => {
     temp();
   }, [])
   const handleSendText = async () => {
-
-    
     const userInput = textEntered.current.value;
-
     textEntered.current.value = "";
+    dispatch(changeCountValue());
 
     dispatch(toggleGemini());
     
@@ -125,7 +118,6 @@ const RightPanelForChats = () => {
 
     dispatch(addHistory(response));
     dispatch(toggleGemini());
-    dispatch(changeCountValue());
   };
 
   const handleKeyPress = (event) => {
@@ -135,7 +127,6 @@ const RightPanelForChats = () => {
     }
   };
   useEffect(() => {
-    // Scroll to the bottom of the chat container when geminiStore changes
     chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }, [geminiStore]);
   return (

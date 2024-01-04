@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { changeStartValue } from "../utils/gemini/startSlice";
-import { changeCountValue } from "../utils/gemini/countSlice";
+
 const RightPanelByAryan = () => {
   const textEntered = useRef();
   const [interviewStarted, setInterviewStarted] = useState(false);
@@ -11,29 +11,23 @@ const RightPanelByAryan = () => {
   const isStarted = useSelector((state) => state.start.value);
   const dispatch = useDispatch();
 
-  
-
-  const handleSendText = async () => {
-    dispatch(changeCountValue());
-  };
 
   const startTheInterviewFunction = () => {
     setInterviewStarted(true);
-    handleSendText();
     dispatch(changeStartValue(true));
     navigate("/interview");
   };
+
   if (!interviewStarted) {
     return (
       <div
         className="flex items-center justify-center min-w-[80vw] h-[100vh] bg-gradient-to-r from-cyan-500 to-blue-500 hover:cursor-pointer"
-        onClick={startTheInterviewFunction}
-      >
+        onClick={startTheInterviewFunction} >
         <p>Click Anywhere to start the interview</p>
       </div>
     );
   }
-  // console.log(geminiStore)
+
   return (
     <div className=" flex flex-col max-width-[330px] bg-slate-400">
       <div className="flex">
