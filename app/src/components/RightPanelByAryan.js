@@ -23,7 +23,10 @@ const RightPanelByAryan = () => {
       <div
         className="flex items-center justify-center min-w-[80vw] h-[100vh] bg-gradient-to-r from-cyan-500 to-blue-500 hover:cursor-pointer"
         onClick={startTheInterviewFunction} >
-        <p>Click Anywhere to start the interview</p>
+          <div className=" bg-black opacity-50 rounded-3xl">
+          <p className="text-5xl text-white  rounded-xl p-4 opacity-100">Click Anywhere to start the interview</p>
+
+          </div>
       </div>
     );
   }
