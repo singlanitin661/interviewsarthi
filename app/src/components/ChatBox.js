@@ -22,21 +22,15 @@ const ChatBox = ({ role, message }) => {
   }
 
   return (
-    <div className="">
-      <p
-        className={
-          role === "user"
-            ? "shadow-md my-2 p-4 bg-[#42bdfc] ml-[30vw] mr-[10vw] rounded-lg"
-            : "shadow-md my-2 p-4 rounded-lg bg-gray-200 mr-[30vw] ml-[10vw]"
-        }
-      >{role === "user" || (message === "understood" && role !== "user")
+    <div className="inline-block w-auto h-auto">
+      {improvMessage !== "Error in parsing json" && improvMessage && <p className="shadow-md my-2 p-4 rounded-lg bg-green-200 mr-[30vw] ml-[10vw]">{improvMessage}</p>}
+      <p className={ role === "user" ? "shadow-md my-2 p-4 bg-[#42bdfc] ml-[30vw] mr-[10vw] rounded-lg"  : "shadow-md my-2 p-4 rounded-lg bg-gray-200 mr-[30vw] ml-[10vw]"} >
+        {role === "user" || (message === "understood" && role !== "user")
                  ? message
-                 : improvMessage}
-
+                 : finalMessage
+  }
       </p>
-      <p className="shadow-md my-2 p-4 rounded-lg bg-green-200 mr-[30vw] ml-[10vw]">
-      {role !== "user" &&  finalMessage}
-      </p>
+      
     </div>
   );
 };

@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = ({ totalCount = 3 }) => {
+  const navigate = useNavigate();
   const [timer, setTimer] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const timerRef = useRef(null);
@@ -54,8 +56,12 @@ const Navbar = ({ totalCount = 3 }) => {
     };
   }, [isStarted, currCount, totalCount]);
 
+  const takeMeToHome = ()=>{
+    navigate("/")
+  }
+
   return (
-    <div className="fixed top-0 left-0 w-full bg-black text-xl text-white">
+    <div className="fixed top-0 left-0 w-full bg-black text-xl text-white hover:cursor-pointer" onClick={takeMeToHome}>
       <div className="flex justify-center align-center py-4">
         <button>
           <h6
