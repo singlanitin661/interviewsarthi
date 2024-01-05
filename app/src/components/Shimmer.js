@@ -1,18 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 const Shimmer = () => {
+  console.log("Shimmer")
   const [shimmer, setShimmer] = useState(true);
-
-  useEffect(() => {
-    const shimmerTimeout = setTimeout(() => {
-      setShimmer(false);
-    }, 8000); // Adjust the duration of the shimmer effect as needed
-
-    return () => {
-      clearTimeout(shimmerTimeout);
-    };
-  }, []);
-
   const shimmerStyles = `
     @keyframes shimmer {
       0% {
@@ -36,14 +26,14 @@ const Shimmer = () => {
 
   return (
     <div
-      className={`inline-block mr-[30vw] ml-[10vw] bg-[#5aa9e6] rounded-lg ${shimmer && 'animate-shimmer'}`}
-      style={{ position: 'relative', overflow: 'hidden' }}
+      className={`inline-block mr-[30vw] ml-[10vw] bg-[#5aa9e6] min-h-[15vh] rounded-lg 'animate-shimmer'`}
+      style={{ position: 'static', overflow: 'hidden' }}
     >
       <style>{shimmerStyles}</style>
       <div className="animate-pulse shadow-md m-2 p-4 rounded-lg bg-[#7fc8f8]"></div>
       <div className="animate-pulse shadow-md m-2 p-4 rounded-lg bg-[#7fc8f8]"></div>
       <div className="animate-pulse shadow-md m-2 p-4 rounded-lg bg-[#7fc8f8]"></div>
-      <div className={`animate-pulse shadow-md m-2 p-4 rounded-lg bg-green-50 ${!shimmer && 'hidden'}`}></div>
+      <div className={`animate-pulse shadow-md m-2 p-4 rounded-lg bg-green-50 `}></div>
     </div>
   );
 };

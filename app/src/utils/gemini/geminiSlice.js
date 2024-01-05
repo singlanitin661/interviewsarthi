@@ -50,6 +50,7 @@ const geminiSlice = createSlice({
         },
         toggleGemini2:(state, action)=>{
           state.isGeminiWorking = action.payload;
+          console.log(Date.now());
         }
     }
 })

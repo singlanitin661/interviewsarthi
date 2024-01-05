@@ -1,22 +1,16 @@
 import { useSelector, useDispatch } from "react-redux";
 import {
   addHistory,
-  toggleGemini,
   toggleGemini2,
 } from "../utils/gemini/geminiSlice";
 import ChatBox from "./ChatBox";
 import React, { useRef, useEffect } from "react";
-import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import SendIcon from "@mui/icons-material/Send";
 import { changeCountValue } from "../utils/gemini/countSlice";
-import {
-  GoogleGenerativeAI,
-  HarmCategory,
-  HarmBlockThreshold,
-} from "@google/generative-ai";
+import GeminiScript from "../utils/GeminiFn";
 import Shimmer from "./Shimmer";
 
 const RightPanelForChats = ({ totalCount = 4 }) => {
@@ -28,89 +22,38 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
   const textEntered = useRef();
   const navigate = useNavigate();
   const chatContainerRef = useRef(null);
-  const GeminiScript = async ({ UserInput, history }) => {
-    const {
-      GoogleGenerativeAI,
-      HarmCategory,
-      HarmBlockThreshold,
-    } = require("@google/generative-ai");
-
-    const MODEL_NAME = "gemini-pro";
-    const API_KEY = process.env.REACT_APP_GEMINI_KEY;
-
-    async function runChat({ UserInput, history }) {
-      // console.log(history);
-      console.log(UserInput);
-      const genAI = new GoogleGenerativeAI(API_KEY);
-      const model = genAI.getGenerativeModel({ model: MODEL_NAME });
-
-      const generationConfig = {
-        temperature: 0.1,
-        topK: 1,
-        topP: 1,
-        maxOutputTokens: 2048,
-      };
-
-      const safetySettings = [
-        {
-          category: HarmCategory.HARM_CATEGORY_HARASSMENT,
-          threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-        },
-        {
-          category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
-          threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-        },
-        {
-          category: HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
-          threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-        },
-        {
-          category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
-          threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-        },
-      ];
-
-      const chat = model.startChat({
-        generationConfig,
-        safetySettings,
-        history,
-      });
-      const result = await chat.sendMessage(UserInput);
-
-      const response = result.response;
-      const ModelText = response.text();
-
-      const jsonModel = {
-        role: "model",
-        parts: [{ text: ModelText }],
-      };
-      return jsonModel;
-    }
-
-    return runChat({ UserInput: UserInput, history: history });
-  };
+  
   const handleSendText = async () => {
-
+    // console.log(chatContainerRef)
+    // console.log(chatContainerRef.current)
     const userInput = textEntered.current.value;
     textEntered.current.value = "";
     const jsonUser = {
       role: "user",
       parts: [{ text: userInput }],
     };
-    dispatch(addHistory(jsonUser));
-    dispatch(toggleGemini());
+    if(history[history.length -1]?.role === "model") dispatch(addHistory(jsonUser));
+    dispatch(toggleGemini2(true));
     chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
 
-
-    const response = await GeminiScript({
-      UserInput: userInput,
-      history: history,
-    });
+    try {
+      const response = await GeminiScript({
+        UserInput: userInput,
+        history: history,
+      });
     
-    if(response?.parts[0]?.text.includes("Score") && !response?.parts[0]?.text.includes("\"Score\" : null,")){ dispatch(changeCountValue());  }
+      // Process the successful response here
+      console.log("Success:", response);
+      if(response?.parts[0]?.text.includes("Score") && !response?.parts[0]?.text.includes("\"Score\" : null,")){ dispatch(changeCountValue());  }
+      dispatch(addHistory(response));
 
-    dispatch(toggleGemini());
-    dispatch(addHistory(response));
+    } catch (error) {
+      // Handle the error and show an alert to the user
+      console.error("Error:", error);
+      alert("An error occurred. Please try again later.");
+    }
+    
+    dispatch(toggleGemini2(false));
     chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
 
   };
@@ -121,10 +64,6 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
       handleSendText();
     }
   };
-  // useEffect(() => { //getting used to scroll the webpage to the top, whenever any new message is added to the history.
-  //   chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-  //   console.log("Tried to take you to the bottom")
-  // }, [history.length, isGeminiWorking]);
   return (
     <div className="bg-[#f0f1f1]">
       <div className="flex flex-col bg-white min-w-[80vw] min-h-[80vh] -mt-16 max-w-[80vw]">
@@ -147,7 +86,8 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
           }
         </div>
       </div>
-      {currCount >= totalCount ? (
+      {/*{currCount >= totalCount ? (*/}
+        {/* {false ? (
         <div className="flex p-3 items-center justify-center bg-[#f0f1f1]">
           <Button
             variant="contained"
@@ -158,7 +98,8 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
             Go to Report
           </Button>
         </div>
-      ) : (
+      ) :  */}
+      {/* ( */}
         <div className="flex p-3 items-center justify-center bg-[#f0f1f1]">
           <TextField
             fullWidth
@@ -175,7 +116,8 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
             <SendIcon />
           </button>
         </div>
-      )}
+      {/* )
+      } */}
     </div>
   );
 };
