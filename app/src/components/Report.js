@@ -33,12 +33,13 @@ const Report = () => {
   return (
     <div className="min-h-screen flex flex-row">
       <Navbar />
-      <div className="flex-grow flex items-center justify-center bg-gray-100 h-[90vh] w-[30vw] mt-16">
+      {/* <div className="report fixed flex-grow flex items-center justify-center bg-gray-100 h-[90vh] min-w-[30vw] max-w-[45vw] mt-16 overflow-scroll"> */}
+      <div className="report fixed flex-grow flex items-center justify-center bg-gray-100 h-[90vh] w-[40vw] mt-16 overflow-scroll">
         <div className="bg-white rounded-lg p-8 shadow-md w-full max-w-md">
           <h1 className="text-3xl font-bold text-center mb-4">
             Congrats on Completing Your Interview!
           </h1>
-          <p className="text-xl font-semibold text-center mb-2">{Score}/80</p>
+          <p className="text-xl font-semibold text-center mb-2">{Score}/{report.score.length*20}</p>
           <div className="mb-4">
             <h2 className="text-lg font-semibold">Scope of Improvement:</h2>
             <p className="text-gray-700">
@@ -67,7 +68,8 @@ const Report = () => {
       </div>
 
       {/* <div className="flex-grow flex flex-col items-center justify-center bg-gray-100 h-[90vh] w-[70vw] mt-16"> */}
-      <div className="chat flex flex-col hide-scrollbar min-h-[80vh] max-h-[80vh] overflow-auto mt-16">
+      {/* <div className="fixed chat flex flex-col hide-scrollbar min-h-[90vh] max-h-[calc(100vh-8rem)] overflow-x-hidden mt-16 max-w-[55vw] ml-[30vw] border-black border"> */}
+      <div className="fixed chat flex flex-col hide-scrollbar min-h-[90vh] max-h-[calc(100vh-8rem)] overflow-x-hidden mt-16 max-w-[60vw] ml-[40vw] rounded-lg p-8 mr-1 ">
         {history.map(
           (data, index) =>
             index > 2 && (

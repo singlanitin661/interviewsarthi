@@ -29,7 +29,7 @@ const ChatBox = ({ role, message }) => {
         setQuestionMessage(res["Question"]);
         setIdealAnswerMessage(res["IdealAnswer"])
         let score = res["Score"];
-        if (score) {
+        if (score && !toShowEveryhing) {
           const parsedScore = parseInt(score, 10);
           if (!isNaN(parsedScore)) {
             // Only dispatch if the parsed score is a valid integer
@@ -49,7 +49,7 @@ const ChatBox = ({ role, message }) => {
   }, []);
   if (role === "user") {
     return (
-      <div className="inline-block my-2  ml-[30vw] mr-[10vw] rounded-lg">
+      <div className={toShowEveryhing ? "inline-block my-2  ml-[20vw] mr-[5vw] rounded-lg min-w-[25vw]" : "inline-block my-2  ml-[30vw] mr-[10vw] rounded-lg min-w-[25vw]"}>
         {role === "user" && (
           <p className="shadow-md p-4 m-2 bg-[#ffe45e]  rounded-lg text-wrap">
             {message}
@@ -62,7 +62,7 @@ const ChatBox = ({ role, message }) => {
   // console.log(role)
 
   return (
-    <div className="inline-block mr-[30vw] ml-[10vw] bg-[#5aa9e6] rounded-lg">
+    <div className={toShowEveryhing ? "inline-block mr-[20vw] ml-[5vw] bg-[#5aa9e6] rounded-lg min-w-[25vw]" : "inline-block mr-[30vw] ml-[10vw] bg-[#5aa9e6] rounded-lg min-w-[25vw]"}>
       {improvMessage !== "Error in parsing json" && improvMessage && (
         <p className="shadow-md m-2 p-4 rounded-lg bg-[#7fc8f8] ">
           {improvMessage}

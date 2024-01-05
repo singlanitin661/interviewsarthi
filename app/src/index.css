@@ -34,3 +34,8 @@ code {
   body {
     overflow-y: auto;
    }
+
+   /* Add the following CSS to your stylesheet */
+.chat {
+  transition: scroll-behavior 0.5s ease-in-out;
+}

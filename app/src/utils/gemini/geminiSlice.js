@@ -44,7 +44,10 @@ const geminiSlice = createSlice({
     reducers:{
         addHistory : (state, action) => {
             state.history.push(action.payload);
-        }, 
+        },
+        removeHistory:(state) =>{
+          state.history.pop();
+        },
         toggleGemini:(state)=>{
             state.isGeminiWorking = !state.isGeminiWorking;
         },
@@ -55,6 +58,6 @@ const geminiSlice = createSlice({
     }
 })
 
-export const {addHistory,toggleGemini,toggleGemini2} = geminiSlice.actions;
+export const {addHistory,removeHistory, toggleGemini,toggleGemini2} = geminiSlice.actions;
 export default geminiSlice.reducer;
 

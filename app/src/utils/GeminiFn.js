@@ -4,6 +4,9 @@ import {
     HarmBlockThreshold,
   } from "@google/generative-ai";
 const GeminiScript = async ({ UserInput, history }) => {
+
+    console.log(history);
+    console.log(UserInput)
   const {
     GoogleGenerativeAI,
     HarmCategory,
