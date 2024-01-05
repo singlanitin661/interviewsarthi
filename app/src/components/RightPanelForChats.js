@@ -17,9 +17,11 @@ import {
   HarmCategory,
   HarmBlockThreshold,
 } from "@google/generative-ai";
+import Shimmer from "./Shimmer";
 
 const RightPanelForChats = ({ totalCount = 4 }) => {
   console.log("RIGHT-PANEL RE-RENDERED.")
+  const isGeminiWorking = useSelector(store=>store.gemini.isGeminiWorking);
   const history = useSelector((store) => store.gemini.history);
   const currCount = useSelector((state) => state.count.count);
   const dispatch = useDispatch();
@@ -90,8 +92,6 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
   const handleSendText = async () => {
     const userInput = textEntered.current.value;
     textEntered.current.value = "";
-    // totalCount--;
-    // console.log(totalCount);
 
     dispatch(toggleGemini());
 
@@ -118,6 +118,7 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
   };
   useEffect(() => {
     chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    console.log("Tried to take you to the bottom")
   }, [history]);
   return (
     <div className="bg-[#f0f1f1]">
@@ -136,6 +137,9 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
                 />
               )
           )}
+          {
+            isGeminiWorking && <Shimmer/>
+          }
         </div>
       </div>
       {currCount >= totalCount ? (
