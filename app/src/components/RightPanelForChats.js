@@ -90,24 +90,29 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
     return runChat({ UserInput: UserInput, history: history });
   };
   const handleSendText = async () => {
+
     const userInput = textEntered.current.value;
     textEntered.current.value = "";
-
+    const jsonUser = {
+      role: "user",
+      parts: [{ text: userInput }],
+    };
+    dispatch(addHistory(jsonUser));
     dispatch(toggleGemini());
+    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+
 
     const response = await GeminiScript({
       UserInput: userInput,
       history: history,
     });
-    const jsonUser = {
-      role: "user",
-      parts: [{ text: userInput }],
-    };
+    
     if(response?.parts[0]?.text.includes("Score") && !response?.parts[0]?.text.includes("\"Score\" : null,")){ dispatch(changeCountValue());  }
 
-    dispatch(addHistory(jsonUser));
-    dispatch(addHistory(response));
     dispatch(toggleGemini());
+    dispatch(addHistory(response));
+    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+
   };
 
   const handleKeyPress = (event) => {
@@ -116,10 +121,10 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
       handleSendText();
     }
   };
-  useEffect(() => {
-    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-    console.log("Tried to take you to the bottom")
-  }, [history]);
+  // useEffect(() => { //getting used to scroll the webpage to the top, whenever any new message is added to the history.
+  //   chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+  //   console.log("Tried to take you to the bottom")
+  // }, [history.length, isGeminiWorking]);
   return (
     <div className="bg-[#f0f1f1]">
       <div className="flex flex-col bg-white min-w-[80vw] min-h-[80vh] -mt-16 max-w-[80vw]">

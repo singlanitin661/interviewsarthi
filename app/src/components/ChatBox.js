@@ -4,7 +4,6 @@ import { addScore, setReport ,toggleShowEverything} from "../utils/Slices/Report
 import { useNavigate } from "react-router-dom";
 
 const ChatBox = ({ role, message }) => {
-  // console.log("chat-box re-rendered")
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const toShowEveryhing = useSelector(store=>store.report.toShowEveryhing)
@@ -16,7 +15,6 @@ const ChatBox = ({ role, message }) => {
   const [questionMessage, setQuestionMessage] = useState(
     "Error in parsing json"
   );
-  console.log(message);
   useEffect(() => {
     const convertToJSON = async (message) => {
       return JSON.parse(message);
