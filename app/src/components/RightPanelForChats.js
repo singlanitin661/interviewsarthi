@@ -108,14 +108,16 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
 
   if (!interviewStarted) {
     return (
+    <div onClick={startTheInterviewFunction} >
       <div
-        className="flex items-center justify-center min-w-[80vw] h-[100vh] bg-gradient-to-r from-cyan-500 to-blue-500 hover:cursor-pointer"
-        onClick={startTheInterviewFunction} >
-        <div className=" bg-black opacity-50 rounded-3xl">
-          <p className="text-5xl text-white  rounded-xl p-4 opacity-100">Click Anywhere to start the interview</p>
+        className="flex items-center justify-center min-w-[80vw] h-[100vh] bg-gradient-to-r from-cyan-500 to-blue-500 hover:cursor-pointer pb-20"
+        >
+        <div className=" bg-black opacity-60 rounded-md mb-20">
+          <p className="text-4xl text-white  rounded-xl p-4 pb-5 pl-6 pr-6 opacity-100">Click Anywhere to start the interview</p>
 
         </div>
       </div>
+      </div >
     );
   }
   return (
