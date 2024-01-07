@@ -16,7 +16,6 @@ const useGeminiScript = ({UserInput}) => {
 
   const MODEL_NAME = "gemini-pro";
   const API_KEY = process.env.REACT_APP_GEMINI_KEY;
-  // console.log(API_KEY)
 
   async function runChat() {
     const genAI = new GoogleGenerativeAI(API_KEY);
