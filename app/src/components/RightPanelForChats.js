@@ -5,9 +5,8 @@ import {
   removeHistory
 } from "../utils/gemini/geminiSlice";
 import ChatBox from "./ChatBox";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import TextField from "@mui/material/TextField";
-import { useNavigate } from "react-router-dom";
 import SendIcon from "@mui/icons-material/Send";
 import { changeCountValue } from "../utils/gemini/countSlice";
 import GeminiScript from "../utils/GeminiFn";
@@ -17,14 +16,10 @@ import Shimmer from "./Shimmer";
 const RightPanelForChats = ({ totalCount = 4 }) => {
   const dispatch = useDispatch();
   const textEntered = useRef();
-  const navigate = useNavigate();
   const chatContainerRef = useRef(null);
-  const [interviewStarted, setInterviewStarted] = useState(false);
 
-  const isStarted = useSelector((state) => state.start.value);
   const isGeminiWorking = useSelector(store => store.gemini.isGeminiWorking);
   const history = useSelector((store) => store.gemini.history);
-  const currCount = useSelector((state) => state.count.count);
 
 
   useEffect(() => {

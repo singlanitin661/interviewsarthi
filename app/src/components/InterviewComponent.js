@@ -1,5 +1,4 @@
 import React from 'react';
-import Navbar from './Navbar';
 import LeftPanel from './LeftPanel';
 import RightPanelForChats from './RightPanelForChats';
 

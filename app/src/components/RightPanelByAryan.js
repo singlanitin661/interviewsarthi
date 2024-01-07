@@ -1,14 +1,11 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useRef } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { changeStartValue } from "../utils/gemini/startSlice";
 
 const RightPanelByAryan = () => {
-  const textEntered = useRef();
   const [interviewStarted, setInterviewStarted] = useState(false);
   const navigate = useNavigate();
-  const isStarted = useSelector((state) => state.start.value);
   const dispatch = useDispatch();
 
 

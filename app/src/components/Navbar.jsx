@@ -1,9 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 const Navbar = ({ totalCount = 4 }) => {
-  const navigate = useNavigate();
   const [timer, setTimer] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const timerRef = useRef(null);
