@@ -22,34 +22,35 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
   const textEntered = useRef();
   const navigate = useNavigate();
   const chatContainerRef = useRef(null);
+  // Assuming chatContainerRef is set up properly using useRef
+
   useEffect(() => {
-    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight + 100;
-
-
     const scrollToBottom = () => {
       const container = chatContainerRef.current;
-      const targetScroll = container.scrollHeight - container.clientHeight;
 
-      const animateScroll = () => {
-        const currentScroll = container.scrollTop;
-        const distance = targetScroll - currentScroll;
-        const step = distance / 20; // Adjust the number of steps as needed
+      if (container) {
+        const targetScroll = container.scrollHeight - container.clientHeight;
 
-        if (Math.abs(distance) > 1) {
-          container.scrollTop += step;
-          requestAnimationFrame(animateScroll);
-        } else {
-          container.scrollTop = targetScroll;
-        }
-      };
+        const animateScroll = () => {
+          const currentScroll = container.scrollTop;
+          const distance = targetScroll - currentScroll;
+          const step = distance / 30;
 
-      animateScroll();
+          if (Math.abs(distance) > 1) {
+            container.scrollTop += step;
+            requestAnimationFrame(animateScroll);
+          } else {
+            container.scrollTop = targetScroll;
+          }
+        };
+
+        animateScroll();
+      }
     };
 
-    // Call scrollToBottom where you want to trigger the smooth scrolling
     scrollToBottom();
 
-  }, [history, isGeminiWorking]);  // Trigger the effect when history or isGeminiWorking changes
+  }, [history, isGeminiWorking]);
 
 
   const handleSendText = async () => {

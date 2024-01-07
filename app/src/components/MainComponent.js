@@ -6,7 +6,6 @@ import RightPanelByAryan from "./RightPanelByAryan";
 const MainComponent = () => {
   return (
     <div style={{ overflow: "hidden" }}>
-      <Navbar />
       <div
         style={{
           paddingTop: "60px",

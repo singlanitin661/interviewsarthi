@@ -6,7 +6,6 @@ import RightPanelForChats from './RightPanelForChats';
 const InterviewComponent = () => {
   return (
     <div style={{ overflow: 'hidden' }}>
-      <Navbar />
       <div style={{ paddingTop: '60px', height: '100vh', overflow: 'hidden', display:"flex", flexDirection:"row" }}>
           <LeftPanel />
           <RightPanelForChats/>

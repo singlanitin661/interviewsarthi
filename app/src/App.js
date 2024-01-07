@@ -20,11 +20,12 @@ function App() {
   return (
     <Provider store={appStore}>
       <Router>
+        <Navbar/>
         <div className="">
           <Routes>
             <Route path="/" element={<MainComponent />} />
             <Route path="/interview" element={<InterviewComponent />} />
-            <Route path="/report" element={<><Navbar/><Report/></>} />
+            <Route path="/report" element={<Report/>} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </div>

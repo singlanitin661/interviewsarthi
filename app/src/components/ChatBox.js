@@ -6,11 +6,11 @@ import { useNavigate } from "react-router-dom";
 const ChatBox = ({ role, message }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const toShowEveryhing = useSelector(store=>store.report.toShowEveryhing)
-  const [continuationMessage, setcontinuationMessage] = useState(
+  const toShowEverything = useSelector(store=>store.report.toShowEveryhing)
+  const [continuationMessage, setContinuationMessage] = useState(
     "Error in parsing json"
   );
-  const [improvMessage, setImprovMessage] = useState("Error in parsing json");
+  const [improvementMessage, setImprovementMessage] = useState("Error in parsing json");
   const [idealAnswerMessage, setIdealAnswerMessage] = useState("Error in parsing json");
   const [questionMessage, setQuestionMessage] = useState(
     "Error in parsing json"
@@ -24,12 +24,12 @@ const ChatBox = ({ role, message }) => {
     convertToJSON(message)
       .then((res) => {
         // console.log(res);
-        setcontinuationMessage(res["Continuations"]);
-        setImprovMessage(res["Improvements"]);
+        setContinuationMessage(res["Continuations"]);
+        setImprovementMessage(res["Improvements"]);
         setQuestionMessage(res["Question"]);
         setIdealAnswerMessage(res["IdealAnswer"])
         let score = res["Score"];
-        if (score && !toShowEveryhing) {
+        if (score && !toShowEverything) {
           const parsedScore = parseInt(score, 10);
           if (!isNaN(parsedScore)) {
             // Only dispatch if the parsed score is a valid integer
@@ -49,61 +49,45 @@ const ChatBox = ({ role, message }) => {
   }, []);
   if (role === "user") {
     return (
-      <div className={toShowEveryhing ? "inline-block my-2  ml-[20vw] mr-[5vw] rounded-lg min-w-[25vw]" : "inline-block my-2  ml-[30vw] mr-[10vw] rounded-lg min-w-[25vw]"}>
+      <div className={toShowEverything ? "inline-block my-2  ml-[20vw] mr-[5vw] rounded-lg min-w-[25vw] m-1" : "inline-block my-2  ml-[30vw] mr-[10vw] rounded-lg min-w-[25vw] m-1"}>
         {role === "user" && (
-          <p className="shadow-md p-4 m-2 bg-[#ffe45e]  rounded-lg text-wrap">
+          <p className="shadow-md p-5 m-2 bg-[#ffe45e]  rounded-lg text-wrap">
             {message}
           </p>
         )}
       </div>
     );
   }
-  // console.log(message);
-  // console.log(role)
 
   return (
-    <div className={toShowEveryhing ? "inline-block mr-[20vw] ml-[5vw] bg-[#5aa9e6] rounded-lg min-w-[25vw] mt-2" : "inline-block mr-[30vw] ml-[10vw] bg-[#5aa9e6] rounded-lg min-w-[25vw] mt-2"}>
-      {improvMessage !== "Error in parsing json" && improvMessage && (
-        <p className="shadow-md m-2 p-4 rounded-lg bg-[#7fc8f8] ">
-          {improvMessage}
+    <div className={toShowEverything ? "inline-block mr-[20vw] ml-[5vw] bg-[#5aa9e6] rounded-lg min-w-[25vw] m-1" : "inline-block mr-[30vw] ml-[10vw] bg-[#5aa9e6] rounded-lg min-w-[25vw] m-1"}>
+      {improvementMessage !== "Error in parsing json" && improvementMessage && (
+        <p className="shadow-md z-10 m-2 p-5 rounded-lg bg-[#7fc8f8] ">
+          {improvementMessage}
         </p>
       )}
 
       {continuationMessage &&
         continuationMessage !== "Error in parsing json" && (
-          <p className="shadow-md m-2 p-4 rounded-lg bg-[#7fc8f8] ">
+          <p className="shadow-md z-10 m-2 p-5 rounded-lg bg-[#7fc8f8] ">
             {continuationMessage}
           </p>
         )}
 
       {questionMessage !== "Error in parsing json" &&
         questionMessage !== undefined && (
-          <p className="shadow-md m-2 p-4 rounded-lg bg-[#7fc8f8] ">
+          <p className="shadow-md z-10 m-2 p-5 rounded-lg bg-[#7fc8f8] ">
             {questionMessage}
           </p>
         )}
-        {toShowEveryhing && idealAnswerMessage !== "Error in parsing json" &&
-        idealAnswerMessage && (
-          <p className="shadow-md m-2 p-4 rounded-lg bg-green-50 ">
+        {toShowEverything && idealAnswerMessage !== "Error in parsing json" && idealAnswerMessage && (
+          <p className="shadow-md z-10 m-2 p-5 rounded-lg bg-green-50 relative">
             {idealAnswerMessage}
           </p>
         )}
+
     </div>
   );
 };
 
 export default ChatBox;
-
-// const ChatBox = ({role, message}) => {
-// console.log("chatbox")
-// return (
-// <div>
-{
-  /* <p>{message}</p> */
-}
-{
-  /* </div> */
-}
-// )
-// }
-//

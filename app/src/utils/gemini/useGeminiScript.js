@@ -64,7 +64,6 @@ const useGeminiScript = ({UserInput}) => {
     const response = result.response;
     console.log(response);
     const ModelText = response.text();
-    // const jsonObject = JSON.parse(response.text())
 
     const jsonModel = {
       role: "model",
@@ -73,10 +72,7 @@ const useGeminiScript = ({UserInput}) => {
 
     dispatch(addHistory(jsonModel))
 
-    //switch of the gemini.
     dispatch(toggleGemini());
-
-    // return jsonObject;
   }
 
   runChat();
