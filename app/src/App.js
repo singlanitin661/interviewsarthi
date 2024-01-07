@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import InterviewComponent from "./components/InterviewComponent";
 import Report from "./components/Report";
 import { useEffect } from "react";
+import Navbar from "./components/Navbar";
 
 function App() {
   useEffect(() => {
@@ -23,7 +24,7 @@ function App() {
           <Routes>
             <Route path="/" element={<MainComponent />} />
             <Route path="/interview" element={<InterviewComponent />} />
-            <Route path="/report" element={<Report />} />
+            <Route path="/report" element={<><Navbar/><Report/></>} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </div>

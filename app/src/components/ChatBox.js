@@ -62,7 +62,7 @@ const ChatBox = ({ role, message }) => {
   // console.log(role)
 
   return (
-    <div className={toShowEveryhing ? "inline-block mr-[20vw] ml-[5vw] bg-[#5aa9e6] rounded-lg min-w-[25vw]" : "inline-block mr-[30vw] ml-[10vw] bg-[#5aa9e6] rounded-lg min-w-[25vw]"}>
+    <div className={toShowEveryhing ? "inline-block mr-[20vw] ml-[5vw] bg-[#5aa9e6] rounded-lg min-w-[25vw] mt-2" : "inline-block mr-[30vw] ml-[10vw] bg-[#5aa9e6] rounded-lg min-w-[25vw] mt-2"}>
       {improvMessage !== "Error in parsing json" && improvMessage && (
         <p className="shadow-md m-2 p-4 rounded-lg bg-[#7fc8f8] ">
           {improvMessage}

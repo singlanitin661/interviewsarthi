@@ -1,13 +1,14 @@
 import React from "react";
-import Navbar from "./Navbar";
-import ChatBox from "./ChatBox";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import ChatBox from "./ChatBox";
+import ReportComp from "./ReportComp";
 
 const Report = () => {
   const report = useSelector((store) => store.report);
-  const history = useSelector((store) => store.gemini.history);
+  const geminiHistory = useSelector((store) => store.gemini.history);
   const navigate = useNavigate();
+
   if (!report.toShowEveryhing) {
     return (
       <div className="flex items-center justify-center flex-col h-[100vh] w-[100vw]">
@@ -23,65 +24,45 @@ const Report = () => {
       </div>
     );
   }
-  console.log(history);
-  let Score = 0;
 
+  let totalScore = 0;
   for (let i = 0; i < report.score.length; i++) {
-    Score = Score + report.score[i];
+    totalScore = totalScore + report.score[i];
   }
 
   return (
-    <div className="min-h-screen flex flex-row">
-      <Navbar />
-      {/* <div className="report fixed flex-grow flex items-center justify-center bg-gray-100 h-[90vh] min-w-[30vw] max-w-[45vw] mt-16 overflow-scroll"> */}
-      <div className="report fixed flex-grow flex items-center justify-center bg-gray-100 h-[90vh] w-[40vw] mt-16 overflow-scroll">
-        <div className="bg-white rounded-lg p-8 shadow-md w-full max-w-md">
-          <h1 className="text-3xl font-bold text-center mb-4">
-            Congrats on Completing Your Interview!
-          </h1>
-          <p className="text-xl font-semibold text-center mb-2">{Score}/{report.score.length*20}</p>
-          <div className="mb-4">
-            <h2 className="text-lg font-semibold">Scope of Improvement:</h2>
-            <p className="text-gray-700">
-              {report?.report?.["Scope_of_Improvement"]}
-            </p>
-          </div>
-          <div className="mb-4">
-            <h2 className="text-lg font-semibold">Weak Points:</h2>
-            <p className="text-gray-700">{report?.report?.["Weak_points"]}</p>
-          </div>
-          <div className="mb-4">
-            <h2 className="text-lg font-semibold">
-              Feedbacks/Interviewer's Comment:
-            </h2>
-            <p className="text-gray-700">
-              {report?.report?.["Feedbacks_or_Interviewers_comment"]}
-            </p>
-          </div>
-          <div className="mb-4">
-            <h2 className="text-lg font-semibold">Rating for the Candidate:</h2>
-            <p className="text-gray-700">
-              {report?.report?.["Rating_for_the_candidate"]}
-            </p>
+    <>
+      <div className="flex flex-row">
+        <div className="report left flex-grow flex-col items-center justify-center h-[100vh] w-[40vw] hide-scrollbar overflow-scroll bg-gray-400 pt-20 "> 
+          <div className="bg-white rounded-lg shadow-md z-100 w-full max-w-md m-auto mb-2 p-10">
+            <h1 className="text-3xl font-bold text-center">
+              Congrats on Completing Your Interview!🥳
+            </h1>
+            <p className="text-xl font-semibold text-center mb-2 cursor-pointer">{totalScore}/{report.score.length * 20}</p>
+            
+            <ReportComp heading="Scope of Improvement" desc={report?.report?.["Scope_of_Improvement"]} />
+            <ReportComp heading="Weak Points" desc={report?.report?.["Weak_points"]} />
+            <ReportComp heading="Feedbacks/Interviewer's Comment" desc={report?.report?.["Feedbacks_or_Interviewers_comment"]} />
+            <ReportComp heading="Rating for the Candidate" desc={report?.report?.["Rating_for_the_candidate"]} />
+          
           </div>
         </div>
+        <div className="right h-[100vh] w-[60vw] bg-gray-100 chat flex flex-col hide-scrollbar overflow-x-hidden pt-20 rounded-lg">
+        {geminiHistory.map(
+            (data, index) =>
+              index > 2 && (
+                <ChatBox
+                  key={index}
+                  role={data?.role}
+                  message={data?.parts[0]?.text}
+                />
+              )
+          )}
+        </div>
+        
       </div>
-
-      {/* <div className="flex-grow flex flex-col items-center justify-center bg-gray-100 h-[90vh] w-[70vw] mt-16"> */}
-      {/* <div className="fixed chat flex flex-col hide-scrollbar min-h-[90vh] max-h-[calc(100vh-8rem)] overflow-x-hidden mt-16 max-w-[55vw] ml-[30vw] border-black border"> */}
-      <div className="fixed chat flex flex-col hide-scrollbar min-h-[90vh] max-h-[calc(100vh-8rem)] overflow-x-hidden mt-16 max-w-[60vw] ml-[40vw] rounded-lg p-8 mr-1 ">
-        {history.map(
-          (data, index) =>
-            index > 2 && (
-              <ChatBox
-                key={index}
-                role={data?.role}
-                message={data?.parts[0]?.text}
-              />
-            )
-        )}
-      </div>
-    </div>
+      
+    </>
   );
 };
 
