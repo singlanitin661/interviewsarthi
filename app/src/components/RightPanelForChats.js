@@ -12,7 +12,6 @@ import SendIcon from "@mui/icons-material/Send";
 import { changeCountValue } from "../utils/gemini/countSlice";
 import GeminiScript from "../utils/GeminiFn";
 import Shimmer from "./Shimmer";
-import { changeStartValue } from "../utils/gemini/startSlice";
 
 
 const RightPanelForChats = ({ totalCount = 4 }) => {
@@ -99,27 +98,9 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
       handleSendText();
     }
   };
-  const startTheInterviewFunction = () => {
-    setInterviewStarted(true);
-    dispatch(changeStartValue(true));
-    navigate("/interview");
-  };
 
 
-  if (!interviewStarted) {
-    return (
-    <div onClick={startTheInterviewFunction} >
-      <div
-        className="flex items-center justify-center min-w-[80vw] h-[100vh] bg-gradient-to-r from-cyan-500 to-blue-500 hover:cursor-pointer pb-20"
-        >
-        <div className=" bg-black opacity-60 rounded-md mb-20">
-          <p className="text-4xl text-white  rounded-xl p-4 pb-5 pl-6 pr-6 opacity-100">Click Anywhere to start the interview</p>
 
-        </div>
-      </div>
-      </div >
-    );
-  }
   return (
     <div className="bg-[#F5F5F5]">
       <div className="flex flex-col bg-white min-w-[80vw] min-h-[80vh] -mt-16 max-w-[80vw]">

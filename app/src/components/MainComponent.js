@@ -1,7 +1,6 @@
 import React from "react";
 import LeftPanel from "./LeftPanel";
-import RightPanelForChats from "./RightPanelForChats";
-
+import RightPanelByAryan from "./RightPanelByAryan";
 const MainComponent = () => {
   return (
     <div style={{ overflow: "hidden" }}>
@@ -14,7 +13,7 @@ const MainComponent = () => {
       >
         <div style={{ display: "flex", flexDirection: "row", height: "100%" }}>
           <LeftPanel />
-          <RightPanelForChats/>
+          <RightPanelByAryan/>
         </div>
       </div>
     </div>

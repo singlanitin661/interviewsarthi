@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const Shimmer = () => {
-  // console.log("Shimmer")
   const [shimmer, setShimmer] = useState(true);
   const shimmerStyles = `
     @keyframes shimmer {
