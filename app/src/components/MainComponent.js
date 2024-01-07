@@ -1,7 +1,6 @@
 import React from "react";
-import Navbar from "./Navbar";
 import LeftPanel from "./LeftPanel";
-import RightPanelByAryan from "./RightPanelByAryan";
+import RightPanelForChats from "./RightPanelForChats";
 
 const MainComponent = () => {
   return (
@@ -15,7 +14,7 @@ const MainComponent = () => {
       >
         <div style={{ display: "flex", flexDirection: "row", height: "100%" }}>
           <LeftPanel />
-          <RightPanelByAryan />
+          <RightPanelForChats/>
         </div>
       </div>
     </div>

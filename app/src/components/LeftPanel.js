@@ -65,7 +65,7 @@ const LeftPanel = () => {
     <Box
       sx={{
         width: "20%",
-        backgroundColor: "#f0f1f1",
+        backgroundColor: "#F5F5F5",
         position: "relative",
         height: "100vh",
         overflow: "auto",
