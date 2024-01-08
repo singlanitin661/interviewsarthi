@@ -24,14 +24,14 @@ const Shimmer = () => {
 
   return (
     <div
-      className={`inline-block bg-[#5aa9e6]  max-w-[40vw] ml-[10vw] mb-5  rounded-lg 'animate-shimmer'`}
+      className={`inline-block bg-[#5aa9e6]  max-w-[40vw] ml-[10vw] mb-5 min-h-[23vh] max-h-[23vh] rounded-lg 'animate-shimmer'`}
       style={{ position: 'static', overflow: 'hidden' }}
     >
       <style>{shimmerStyles}</style>
       <div className="animate-pulse shadow-md m-2 p-4 rounded-lg bg-[#7fc8f8]"></div>
       <div className="animate-pulse shadow-md m-2 p-4 rounded-lg bg-[#7fc8f8]"></div>
       <div className="animate-pulse shadow-md m-2 p-4 rounded-lg bg-[#7fc8f8]"></div>
-      <div className={`animate-pulse shadow-md m-2 p-4 rounded-lg bg-green-50 `}></div>
+      <div className={`animate-pulse shadow-md m-2 p-4 rounded-lg bg-green-50`}></div>
     </div>
   );
 };

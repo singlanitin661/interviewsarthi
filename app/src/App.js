@@ -10,12 +10,16 @@ import Navbar from "./components/Navbar";
 
 function App() {
   useEffect(() => {
-    const isReloaded = window.performance && window.performance.navigation.type === window.performance.navigation.TYPE_RELOAD;
-
-    if (isReloaded && window.location.pathname === '/interview') {
-      window.location.href = '/';
+    const isReloaded =
+      window.performance &&
+      window.performance.navigation.type ===
+        window.performance.navigation.TYPE_RELOAD;
+  
+    if (isReloaded) {
+      window.location.href = `/?${Date.now()}`;
     }
   }, []);
+  
 
   return (
     <Provider store={appStore}>

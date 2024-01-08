@@ -9,6 +9,7 @@ const Navbar = ({ totalCount = 4 }) => {
   const pausedTimeRef = useRef(0);
   const isStarted = useSelector((state) => state.start.value);
   const currCount = useSelector((state) => state.count.count);
+  const toShowEverything = useSelector((store) => store.report.toShowEveryhing);
 
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60)
@@ -21,50 +22,42 @@ const Navbar = ({ totalCount = 4 }) => {
   const startTimer = () => {
     startTimeRef.current = Date.now() - timer * 1000;
     timerRef.current = setInterval(() => {
-      const elapsedTime = Math.floor(
-        (Date.now() - startTimeRef.current) / 1000
-      );
-      setTimer(elapsedTime);
+      const elapsedTime = Math.floor((Date.now() - startTimeRef.current) / 1000);
+      setTimer(elapsedTime + pausedTimeRef.current); // Consider paused time
     }, 1000);
+    setIsRunning(true);
   };
 
-  const handleTimerClick = () => {
-    if (isRunning) {
-      clearInterval(timerRef.current);
-      pausedTimeRef.current = timer;
-      setIsRunning(false);
-    } else {
-      setIsRunning(true);
-      startTimer();
-    }
+  const pauseTimer = () => {
+    clearInterval(timerRef.current);
+    pausedTimeRef.current += timer; // Store elapsed time when paused
+    setIsRunning(false);
   };
 
   useEffect(() => {
-    if (isStarted) {
+    if (isStarted && !toShowEverything) {
       startTimer();
     } else {
-      clearInterval(timerRef.current);
-      setTimer(0);
+      pauseTimer();
     }
-    if (currCount === totalCount + 1) {
-      clearInterval(timerRef.current);
-    }
-    return () => {
-      clearInterval(timerRef.current);
-    };
-  }, [isStarted, currCount, totalCount]);
+  }, [isStarted, toShowEverything]);
 
+  useEffect(() => {
+    if (toShowEverything) {
+      pauseTimer();
+    }
+  }, [toShowEverything]);
 
   return (
-    <div className="fixed top-0 left-0 w-full bg-black text-xl text-white hover:cursor-pointer" >
+    <div className="fixed top-0 left-0 w-full bg-black text-xl text-white hover:cursor-pointer">
       <div className="flex justify-center align-center py-4">
-          <h6 className={`w-[50px] ${isStarted ? "" : "hidden"}`}>
-            {`${currCount}/${totalCount}`}
-          </h6>
+        <h6 className={`w-[50px] ${isStarted ? "" : "hidden"}`}>
+          {`${currCount}/${totalCount}`}
+        </h6>
         <h6 className="font-bold ml-[35vw] mr-[35vw]"> InterviewSarthi </h6>
-          <h6 className={`w-[50px] ${isStarted ? "" : "hidden"}`}>
-            {formatTime(timer)}
-          </h6>
+        <h6 className={`w-[50px] ${isStarted ? "" : "hidden"}`}>
+          {formatTime(timer)}
+        </h6>
       </div>
     </div>
   );
