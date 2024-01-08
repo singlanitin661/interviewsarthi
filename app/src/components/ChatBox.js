@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addScore, setReport ,toggleShowEverything} from "../utils/Slices/ReportSlice";
+import { addScore, setReport, toggleShowEverything } from "../utils/Slices/ReportSlice";
 import { useNavigate } from "react-router-dom";
 
 const ChatBox = ({ role, message }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const toShowEverything = useSelector(store=>store.report.toShowEveryhing)
+  const toShowEverything = useSelector(store => store.report.toShowEveryhing)
   const [continuationMessage, setContinuationMessage] = useState(
     "Error in parsing json"
   );
@@ -37,7 +37,7 @@ const ChatBox = ({ role, message }) => {
             console.log("Score added", parsedScore);
           }
         }
-        if(message.includes("Scope_of_Improvement") && message.includes("Weak_points") && message.includes("Strong_points")){
+        if (message.includes("Scope_of_Improvement") && message.includes("Weak_points") && message.includes("Strong_points")) {
           dispatch(setReport(res));
           dispatch(toggleShowEverything());
           navigate("/report")
@@ -80,11 +80,11 @@ const ChatBox = ({ role, message }) => {
             {questionMessage}
           </p>
         )}
-        {toShowEverything && idealAnswerMessage !== "Error in parsing json" && idealAnswerMessage && (
-          <p className="shadow-md m-2 p-5 rounded-lg bg-green-50 relative">
-            {idealAnswerMessage}
-          </p>
-        )}
+      {toShowEverything && idealAnswerMessage !== "Error in parsing json" && idealAnswerMessage && (
+        <p className="shadow-md m-2 p-5 rounded-lg bg-green-50">
+          {idealAnswerMessage}
+        </p>
+      )}
 
     </div>
   );
