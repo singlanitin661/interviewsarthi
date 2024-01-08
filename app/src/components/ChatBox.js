@@ -23,7 +23,6 @@ const ChatBox = ({ role, message }) => {
 
     convertToJSON(message)
       .then((res) => {
-        // console.log(res);
         setContinuationMessage(res["Continuations"]);
         setImprovementMessage(res["Improvements"]);
         setQuestionMessage(res["Question"]);
@@ -32,7 +31,6 @@ const ChatBox = ({ role, message }) => {
         if (score && !toShowEverything) {
           const parsedScore = parseInt(score, 10);
           if (!isNaN(parsedScore)) {
-            // Only dispatch if the parsed score is a valid integer
             dispatch(addScore(parsedScore));
             console.log("Score added", parsedScore);
           }

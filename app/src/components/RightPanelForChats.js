@@ -137,7 +137,7 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
             </button>
           </>
         ) : (
-          <h1>Please wait........</h1>
+          <h1 className="text-2xl">Please wait........</h1>
         )}
       </div>
     </div>
