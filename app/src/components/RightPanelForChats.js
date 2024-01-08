@@ -114,7 +114,7 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
               )
           )}
           {
-            isGeminiWorking && <Shimmer />
+            isGeminiWorking && <Shimmer/>
           }
         </div>
       </div>

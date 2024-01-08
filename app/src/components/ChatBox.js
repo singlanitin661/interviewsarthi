@@ -60,9 +60,9 @@ const ChatBox = ({ role, message }) => {
   }
 
   return (
-    <div className={toShowEverything ? "inline-block mr-[20vw] ml-[5vw] bg-[#5aa9e6] rounded-lg min-w-[25vw] m-1 shadow-md" : "inline-block mr-[30vw] ml-[10vw] bg-[#5aa9e6] rounded-lg min-w-[25vw] m-1 shadow-md"}>
+    <div className={toShowEverything ? "inline-block mr-[20vw] ml-[5vw] bg-[#5aa9e6] rounded-lg min-w-[25vw] m-1 shadow-md mt-2 mb-3" : "inline-block mr-[30vw] ml-[10vw] bg-[#5aa9e6] rounded-lg min-w-[25vw] m-1 shadow-md mt-2 mb-3"}>
       {improvementMessage !== "Error in parsing json" && improvementMessage && (
-        <p className="shadow-md m-2 p-5 rounded-lg bg-[#7fc8f8] ">
+        <p className="shadow-md m-2 p-5 rounded-lg bg-[#7fc8f8]">
           {improvementMessage}
         </p>
       )}

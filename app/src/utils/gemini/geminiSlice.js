@@ -43,4 +43,3 @@ const geminiSlice = createSlice({
 
 export const {addHistory,removeHistory, toggleGemini,toggleGemini2} = geminiSlice.actions;
 export default geminiSlice.reducer;
-
