@@ -54,7 +54,7 @@ const Navbar = ({ totalCount = 4 }) => {
         <h6 className={`w-[50px] ${isStarted ? "" : "hidden"}`}>
           {`${currCount}/${totalCount}`}
         </h6>
-        <h6 className="font-bold ml-[35vw] mr-[35vw]"> InterviewSarthi </h6>
+        <h6 className="font-bold ml-[35vw] mr-[35vw] z-10 shadow-md"> InterviewSarthi </h6>
         <h6 className={`w-[50px] ${isStarted ? "" : "hidden"}`}>
           {formatTime(timer)}
         </h6>
