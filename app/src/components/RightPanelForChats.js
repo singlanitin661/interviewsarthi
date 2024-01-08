@@ -128,6 +128,7 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
               onKeyPress={handleKeyPress}
               label="Type your answer"
             />
+            
             <button
               size="large"
               className="py-4 px-5 pb-3 ml-2 mr-2 rounded-md bg-black text-white  transition duration-300 ease-in-out hover:text-gray-400"
