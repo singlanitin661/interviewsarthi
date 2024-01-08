@@ -23,6 +23,7 @@ const ChatBox = ({ role, message }) => {
 
     convertToJSON(message)
       .then((res) => {
+        // console.log(res);
         setContinuationMessage(res["Continuations"]);
         setImprovementMessage(res["Improvements"]);
         setQuestionMessage(res["Question"]);

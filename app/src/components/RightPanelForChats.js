@@ -58,7 +58,7 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
       role: "user",
       parts: [{ text: userInput }],
     };
-    if (history[history.length - 1]?.role === "model") 
+    if (history[history.length - 1]?.role === "model")
       dispatch(addHistory(jsonUser));
     else {
       dispatch(removeHistory());
@@ -73,9 +73,8 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
         history: history,
       });
       console.log("Success:", response);
-      if (response?.parts[0]?.text.includes("Score") && !response?.parts[0]?.text.includes("\"Score\" : null,")) 
-        { dispatch(changeCountValue()); }
-        chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+      if (response?.parts[0]?.text.includes("Score") && !response?.parts[0]?.text.includes("\"Score\" : null,")) { dispatch(changeCountValue()); }
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
       dispatch(addHistory(response));
     } catch (error) {
       console.error("Error:", error);
@@ -114,7 +113,7 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
               )
           )}
           {
-            isGeminiWorking && <Shimmer/>
+            isGeminiWorking && <Shimmer />
           }
         </div>
       </div>
