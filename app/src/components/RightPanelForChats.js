@@ -78,7 +78,7 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
       dispatch(addHistory(response));
     } catch (error) {
       console.error("Error:", error);
-      alert("An error occurred. Please try again later.");
+      alert("An error occurred. Please reload the page.");
     }
 
     dispatch(toggleGemini2(false));
