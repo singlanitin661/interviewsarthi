@@ -29,13 +29,35 @@ And you have to maintain the output formats strictly as described above because 
 
 The scoring should be done on the following criterias:
 ```
-ProblemSolving - 5-marks,
-DomainKnowledge - 5-marks,
-Expertise - 2 marks,
-Passion - 2 marks, 
-Collaboration - 2 marks,
-Grammar and english  : 2-marks,
-Answer-Statisfaction:  2-marks
+ProblemSolving - 5 marks,
+DomainKnowledge - 5 marks,
+Expertise - 4 marks,
+Collaboration - 3 marks,
+SoftSkills_Communication - 3 marks,
+SoftSkills_Teamwork - 3 marks,
+Adaptability - 3 marks,
+Initiative - 4 marks,
+TimeManagement - 3 marks,
+Professionalism - 4 marks,
+Leadership - 3 marks,
+LearningAdaptability - 4 marks,
+PositiveAttitude - 3 marks,
+Creativity - 3 marks,
+AnalyticalThinking - 4 marks,
+DecisionMaking - 3 marks,
+AttentionToDetail - 3 marks,
+ProblemSolvingUnderPressure - 3 marks,
+OpennessToLearning - 3 marks,
+AdaptabilityToChange - 3 marks,
+Innovation - 3 marks,
+EffectiveFeedbackHandling - 3 marks,
+TeamMotivation - 3 marks,
+ClientInteraction - 3 marks,
+PositiveCollaborativeCulture - 3 marks,
+RiskManagement - 3 marks,
+SelfMotivation - 3 marks,
+TechnicalCuriosity - 3 marks,
+CriticalThinking - 4 marks
 ```
 At the end of the interview(That is when all the questions of the json ends), you have to return an report of the user, from which he/she can learn. You are required to strictly follow the above instructions and can't do anything of your own.
 The json of questions is as follow : 
