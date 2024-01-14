@@ -9,6 +9,8 @@ import { useEffect } from "react";
 import Navbar from "./components/Navbar";
 
 function App() {
+
+  //Logic which redirects us to Homepage when we refresh the page.
   useEffect(() => {
     const isReloaded =
       window.performance &&
