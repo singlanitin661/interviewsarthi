@@ -20,7 +20,7 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
   const textEntered = useRef();
   const chatContainerRef = useRef(null);
 
-  const [micOn , setMicOn] = useState(false) ;
+  const [micOn, setMicOn] = useState(false);
   const isGeminiWorking = useSelector(store => store.gemini.isGeminiWorking);
   const history = useSelector((store) => store.gemini.history);
 
@@ -53,8 +53,8 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
 
   }, [history, isGeminiWorking]);
 
-  const handleMicClick = () =>{
-    setMicOn((micOn)=>!micOn) ;
+  const handleMicClick = () => {
+    setMicOn((micOn) => !micOn);
   }
 
   const handleSendText = async () => {
@@ -128,23 +128,27 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
         {!isGeminiWorking ? (
           <>
             <TextareaAutosize
-              className={"max-h-20 shadow-md border border-2 sm:rounded-lg md:rounded-xl lg:rounded-xl xl:rounded-xl overflow-y-scroll grow p-3"}
+              style={{
+                outline: '1px solid transparent'
+              }}
+              className={"max-h-30 shadow-md border sm:rounded-lg md:rounded-xl lg:rounded-xl xl:rounded-xl overflow-y-scroll grow p-4 focus:border-gray-500"}
               placeholder={"Type your answer"}
-              maxRows={8}
+              maxRows={3}
               ref={textEntered}
               onKeyDown={handleKeyPress}
             />
 
+
             <button
-              className="relative bg-[#0d0d0d] px-2 py-2 pb-3 rounded-md ml-2 text-white transition duration-300 hover:text-gray-400 "
+              className="relative bg-[#0d0d0d] px-2 py-3 pb-3 rounded-md ml-2 text-white transition duration-300 hover:text-gray-400 "
               onClick={handleMicClick}
             >
-              {micOn?<KeyboardVoiceIcon />:<MicOffIcon/>}
-              
+              {micOn ? <KeyboardVoiceIcon /> : <MicOffIcon />}
+
             </button>
 
             <button
-              className="relative bg-[#0d0d0d] px-4 py-2 pb-3 rounded-md ml-2 mr-2 text-white transition duration-300 hover:text-gray-400 "
+              className="relative bg-[#0d0d0d] px-4 py-3 pb-3 rounded-md ml-2 mr-2 text-white transition duration-300 hover:text-gray-400 "
               onClick={handleSendText}
             >
               <SendIcon />
