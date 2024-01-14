@@ -24,7 +24,7 @@ const Shimmer = () => {
 
   return (
     <div
-      className={`inline-block bg-[#bfbfbf]  max-w-[40vw] ml-[10vw] mb-5 min-h-25 max-h-25 rounded-lg animate-shimmer flex flex-col justify-center align-center`}
+      className={`inline-block bg-[#bfbfbf]  max-w-[40vw] ml-[10vw] mb-5 min-h-40 max-h-40 rounded-lg animate-shimmer flex flex-col justify-center align-center`}
       style={{ position: 'static', overflow: 'hidden' }}
     >
       <style>{shimmerStyles}</style>
