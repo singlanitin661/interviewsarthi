@@ -50,7 +50,7 @@ const ChatBox = ({ role, message }) => {
     return (
       <div className={toShowEverything ? "inline-block my-2  ml-[20vw] mr-[5vw] min-w-[25vw] m-1" : "inline-block my-2  ml-[30vw] mr-[10vw] min-w-[25vw] m-1"}>
         {role === "user" && (
-          <p className="shadow-md p-5 m-2 bg-[#ffe45e]  rounded-bl-3xl rounded-tl-3xl rounded-tr-3xl text-wrap">
+          <p className="shadow-md p-5 m-2 bg-[#fff] rounded-bl-3xl rounded-tl-3xl rounded-tr-3xl text-wrap">
             {message}
           </p>
         )}
@@ -59,23 +59,23 @@ const ChatBox = ({ role, message }) => {
   }
 
   return (
-    <div className={toShowEverything ? "inline-block mr-[20vw] ml-[5vw] bg-[#5aa9e6] min-w-[25vw] m-1 shadow-md mt-2 mb-3" : "inline-block mr-[30vw] ml-[10vw] bg-[#5aa9e6] rounded-br-3xl rounded-tl-3xl rounded-tr-3xl min-w-[25vw] m-1 shadow-md mt-2 mb-3"}>
+    <div className={toShowEverything ? "inline-block mr-[20vw] ml-[5vw] bg-[#000] min-w-[25vw] m-1 shadow-md mt-2 mb-3" : "inline-block mr-[30vw] ml-[10vw] bg-[#000] rounded-br-3xl rounded-tl-3xl rounded-tr-3xl min-w-[25vw] m-1 shadow-md mt-2 mb-3"}>
       {improvementMessage !== "Error in parsing json" && improvementMessage && (
-        <p className="shadow-md m-2 p-5 rounded-lg bg-[#7fc8f8]">
+        <p className="shadow-md m-2 p-5 rounded-lg bg-[#000] text-white">
           {improvementMessage}
         </p>
       )}
 
       {continuationMessage &&
         continuationMessage !== "Error in parsing json" && (
-          <p className="shadow-md m-2 p-5 rounded-3xl bg-[#7fc8f8] ">
+          <p className="shadow-md m-2 p-5 rounded-3xl bg-[#000] text-white ">
             {continuationMessage}
           </p>
         )}
 
       {questionMessage !== "Error in parsing json" &&
         questionMessage !== undefined && (
-          <p className="shadow-md m-2 p-5 rounded-lg bg-[#7fc8f8] ">
+          <p className="shadow-md m-2 p-5 rounded-lg bg-[#000] text-white">
             {questionMessage}
           </p>
         )}

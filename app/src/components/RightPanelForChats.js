@@ -5,14 +5,14 @@ import {
   removeHistory
 } from "../utils/gemini/geminiSlice";
 import ChatBox from "./ChatBox";
-import React, { useRef, useEffect } from "react";
-import {TextareaAutosize} from "@mui/base/TextareaAutosize";
+import React, { useState, useRef, useEffect } from "react";
+import { TextareaAutosize } from "@mui/base/TextareaAutosize";
 import SendIcon from "@mui/icons-material/Send";
+import KeyboardVoiceIcon from '@mui/icons-material/KeyboardVoice';
+import MicOffIcon from '@mui/icons-material/MicOff';
 import { changeCountValue } from "../utils/gemini/countSlice";
 import GeminiScript from "../utils/GeminiFn";
 import Shimmer from "./Shimmer";
-import {Button} from "@mui/material";
-import {hover} from "@testing-library/user-event/dist/hover";
 
 
 const RightPanelForChats = ({ totalCount = 4 }) => {
@@ -20,6 +20,7 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
   const textEntered = useRef();
   const chatContainerRef = useRef(null);
 
+  const [micOn , setMicOn] = useState(false) ;
   const isGeminiWorking = useSelector(store => store.gemini.isGeminiWorking);
   const history = useSelector((store) => store.gemini.history);
 
@@ -52,6 +53,9 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
 
   }, [history, isGeminiWorking]);
 
+  const handleMicClick = () =>{
+    setMicOn((micOn)=>!micOn) ;
+  }
 
   const handleSendText = async () => {
     const userInput = textEntered.current.value;
@@ -98,8 +102,8 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
 
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F5F5F5] justify-between">
-      <div className="flex flex-col bg-white min-w-[80vw] min-h-[80vh] -mt-16 max-w-[80vw] grow">
+    <div className="min-h-screen flex flex-col bg-[#f5f5f5] justify-between">
+      <div className="flex flex-col bg-[#f5f5f5] min-w-[80vw] min-h-[80vh] -mt-16 max-w-[80vw] grow">
         <div
           ref={chatContainerRef}
           className="chat flex flex-col hide-scrollbar min-h-[80vh] max-h-[80vh] overflow-auto mt-16"
@@ -120,26 +124,32 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
         </div>
       </div>
 
-      <div className="bottom-0 bg-[#F5F5F5] sticky h-fit flex p-3 items-center justify-center">
+      <div className="bottom-0 bg-[#F5F5F5] sticky h-fit flex ml-10 p-2 items-center justify-center">
         {!isGeminiWorking ? (
           <>
             <TextareaAutosize
-              className={"max-h-40 overflow-y-scroll grow p-2"}
+              className={"max-h-20 shadow-md border border-2 sm:rounded-lg md:rounded-xl lg:rounded-xl xl:rounded-xl overflow-y-scroll grow p-3"}
               placeholder={"Type your answer"}
               maxRows={8}
               ref={textEntered}
               onKeyDown={handleKeyPress}
             />
 
+            <button
+              className="relative bg-black px-2 py-2 pb-3 rounded-md ml-2 text-white transition duration-300 hover:text-gray-400 "
+              onClick={handleMicClick}
+            >
+              {micOn?<KeyboardVoiceIcon />:<MicOffIcon/>}
+              
+            </button>
 
-            <Button
-              variant= "contained"
-              style={{ backgroundColor:"black", padding: "1rem 1.25rem", paddingBottom: "0.75rem", borderRadius: "6px", marginLeft: "0.5rem", marginRight: "0.5rem"}}
-              size="large"
-              className="ml-2 mr-2 hover:text-gray-400"
-              onClick={handleSendText}>
+            <button
+              className="relative bg-black px-4 py-2 pb-3 rounded-md ml-2 mr-2 text-white transition duration-300 hover:text-gray-400 "
+              onClick={handleSendText}
+            >
               <SendIcon />
-            </Button>
+            </button>
+
           </>
         ) : (
           <h1 className="text-2xl">Please wait........</h1>
