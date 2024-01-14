@@ -91,7 +91,7 @@ const LeftPanel = () => {
               width: "100%",
               height: "auto",
               borderRadius: "5px",
-              backgroundColor: "black",
+              backgroundColor: "#0d0d0d",
               zIndex: "5",
               boxShadow: "2px 2px 2px grey",
             }}
@@ -107,7 +107,7 @@ const LeftPanel = () => {
           <Button
             variant="contained"
             className="speakBtn"
-            style={{ width: "75%", borderRadius: "5px", marginBottom: "10px" , backgroundColor:"black" }}
+            style={{ width: "75%", borderRadius: "5px", marginBottom: "10px" , backgroundColor:"#0d0d0d" }}
           >
             Pardon Me
           </Button>

@@ -49,7 +49,7 @@ const Navbar = ({ totalCount = 4 }) => {
   }, [toShowEverything]);
 
   return (
-    <div className="fixed top-0 left-0 w-full bg-black text-xl text-white hover:cursor-pointer">
+    <div className="fixed top-0 left-0 w-full bg-[#0d0d0d] text-xl text-white hover:cursor-pointer">
       <div className="flex justify-center align-center py-4">
         <h6 className={`w-[50px] ${isStarted ? "" : "hidden"}`}>
           {`${currCount}/${totalCount}`}

@@ -119,7 +119,7 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
               )
           )}
           {
-            isGeminiWorking && <Shimmer />
+            !isGeminiWorking && <Shimmer />
           }
         </div>
       </div>
@@ -136,7 +136,7 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
             />
 
             <button
-              className="relative bg-black px-2 py-2 pb-3 rounded-md ml-2 text-white transition duration-300 hover:text-gray-400 "
+              className="relative bg-[#0d0d0d] px-2 py-2 pb-3 rounded-md ml-2 text-white transition duration-300 hover:text-gray-400 "
               onClick={handleMicClick}
             >
               {micOn?<KeyboardVoiceIcon />:<MicOffIcon/>}
@@ -144,7 +144,7 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
             </button>
 
             <button
-              className="relative bg-black px-4 py-2 pb-3 rounded-md ml-2 mr-2 text-white transition duration-300 hover:text-gray-400 "
+              className="relative bg-[#0d0d0d] px-4 py-2 pb-3 rounded-md ml-2 mr-2 text-white transition duration-300 hover:text-gray-400 "
               onClick={handleSendText}
             >
               <SendIcon />
