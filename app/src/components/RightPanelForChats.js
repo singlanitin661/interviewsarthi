@@ -11,6 +11,8 @@ import SendIcon from "@mui/icons-material/Send";
 import { changeCountValue } from "../utils/gemini/countSlice";
 import GeminiScript from "../utils/GeminiFn";
 import Shimmer from "./Shimmer";
+import {Button} from "@mui/material";
+import {hover} from "@testing-library/user-event/dist/hover";
 
 
 const RightPanelForChats = ({ totalCount = 4 }) => {
@@ -128,13 +130,15 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
               onKeyPress={handleKeyPress}
               label="Type your answer"
             />
-            
-            <button
+
+            <Button
+              variant= "contained"
+              style={{ backgroundColor:"black", padding: "1rem 1.25rem", paddingBottom: "0.75rem", borderRadius: "6px"}}
               size="large"
-              className="py-4 px-5 pb-3 ml-2 mr-2 rounded-md bg-black text-white  transition duration-300 ease-in-out hover:text-gray-400"
+              className="hover:text-gray-400"
               onClick={handleSendText}>
               <SendIcon />
-            </button>
+            </Button>
           </>
         ) : (
           <h1 className="text-2xl">Please wait........</h1>
