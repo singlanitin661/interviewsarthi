@@ -124,7 +124,7 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
         </div>
       </div>
 
-      <div className="bottom-0 bg-[#F5F5F5] sticky h-fit flex ml-10 p-2 items-center justify-center">
+      <div className="bottom-0 bg-[#F5F5F5] sticky h-fit flex ml-20 p-2 items-center justify-center">
         {!isGeminiWorking ? (
           <>
             <TextareaAutosize
