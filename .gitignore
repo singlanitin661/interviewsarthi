@@ -3,3 +3,4 @@
 ./app/.env
 app/.env
 /app/.env
+node_modules/
