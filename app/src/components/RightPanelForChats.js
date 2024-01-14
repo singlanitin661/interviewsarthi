@@ -133,9 +133,9 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
 
             <Button
               variant= "contained"
-              style={{ backgroundColor:"black", padding: "1rem 1.25rem", paddingBottom: "0.75rem", borderRadius: "6px"}}
+              style={{ backgroundColor:"black", padding: "1rem 1.25rem", paddingBottom: "0.75rem", borderRadius: "6px", marginLeft: "0.5rem", marginRight: "0.5rem"}}
               size="large"
-              className="hover:text-gray-400"
+              className="ml-2 mr-2 hover:text-gray-400"
               onClick={handleSendText}>
               <SendIcon />
             </Button>
