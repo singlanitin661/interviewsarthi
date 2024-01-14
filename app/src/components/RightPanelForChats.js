@@ -6,7 +6,7 @@ import {
 } from "../utils/gemini/geminiSlice";
 import ChatBox from "./ChatBox";
 import React, { useRef, useEffect } from "react";
-import TextField from "@mui/material/TextField";
+import {TextareaAutosize} from "@mui/base/TextareaAutosize";
 import SendIcon from "@mui/icons-material/Send";
 import { changeCountValue } from "../utils/gemini/countSlice";
 import GeminiScript from "../utils/GeminiFn";
@@ -98,8 +98,8 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
 
 
   return (
-    <div className="bg-[#F5F5F5]">
-      <div className="flex flex-col bg-white min-w-[80vw] min-h-[80vh] -mt-16 max-w-[80vw]">
+    <div className="min-h-screen flex flex-col bg-[#F5F5F5] justify-between">
+      <div className="flex flex-col bg-white min-w-[80vw] min-h-[80vh] -mt-16 max-w-[80vw] grow">
         <div
           ref={chatContainerRef}
           className="chat flex flex-col hide-scrollbar min-h-[80vh] max-h-[80vh] overflow-auto mt-16"
@@ -120,16 +120,17 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
         </div>
       </div>
 
-      <div className="flex p-3 items-center justify-center bg-[#F5F5F5]">
+      <div className="bottom-0 bg-[#F5F5F5] sticky h-fit flex p-3 items-center justify-center">
         {!isGeminiWorking ? (
           <>
-            <TextField
-              fullWidth
-              type="text"
-              inputRef={textEntered}
-              onKeyPress={handleKeyPress}
-              label="Type your answer"
+            <TextareaAutosize
+              className={"max-h-40 overflow-y-scroll grow p-2"}
+              placeholder={"Type your answer"}
+              maxRows={8}
+              ref={textEntered}
+              onKeyDown={handleKeyPress}
             />
+
 
             <Button
               variant= "contained"
