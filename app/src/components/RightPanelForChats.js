@@ -129,7 +129,7 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
           <>
             <TextareaAutosize
               style={{
-                outline: '1px solid transparent'
+                outline: '1px solid transparent',
               }}
               className={"max-h-30 shadow-md border sm:rounded-lg md:rounded-xl lg:rounded-xl xl:rounded-xl overflow-y-scroll grow p-4 focus:border-gray-500"}
               placeholder={"Type your answer"}
