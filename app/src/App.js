@@ -7,6 +7,7 @@ import InterviewComponent from "./components/InterviewComponent";
 import Report from "./components/Report";
 import { useEffect } from "react";
 import Navbar from "./components/Navbar";
+// import Speech from "./components/Speech";
 
 function App() {
 
@@ -37,6 +38,8 @@ function App() {
         </div>
       </Router>
     </Provider>
+
+    // <Speech/>
   );
 }
 

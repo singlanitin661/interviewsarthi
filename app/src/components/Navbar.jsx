@@ -22,15 +22,17 @@ const Navbar = ({ totalCount = 4 }) => {
   const startTimer = () => {
     startTimeRef.current = Date.now() - timer * 1000;
     timerRef.current = setInterval(() => {
-      const elapsedTime = Math.floor((Date.now() - startTimeRef.current) / 1000);
-      setTimer(elapsedTime + pausedTimeRef.current); // Consider paused time
+      const elapsedTime = Math.floor(
+        (Date.now() - startTimeRef.current) / 1000
+      );
+      setTimer(elapsedTime + pausedTimeRef.current);
     }, 1000);
     setIsRunning(true);
   };
 
   const pauseTimer = () => {
     clearInterval(timerRef.current);
-    pausedTimeRef.current += timer; // Store elapsed time when paused
+    pausedTimeRef.current += timer;
     setIsRunning(false);
   };
 
@@ -54,7 +56,10 @@ const Navbar = ({ totalCount = 4 }) => {
         <h6 className={`w-[50px] ${isStarted ? "" : "hidden"}`}>
           {`${currCount}/${totalCount}`}
         </h6>
-        <h6 className="font-bold ml-[35vw] mr-[35vw] z-10 shadow-md"> InterviewSarthi </h6>
+        <h6 className="font-bold ml-[35vw] mr-[35vw] z-10 shadow-md">
+          {" "}
+          InterviewSarthi{" "}
+        </h6>
         <h6 className={`w-[50px] ${isStarted ? "" : "hidden"}`}>
           {formatTime(timer)}
         </h6>
