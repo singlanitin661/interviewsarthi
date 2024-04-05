@@ -26,7 +26,14 @@ const ChatBox = ({ role, message }) => {
         // console.log(res);
         setContinuationMessage(res["Continuations"]);
         setImprovementMessage(res["Improvements"]);
+
         setQuestionMessage(res["Question"]);
+        var msg = new SpeechSynthesisUtterance();
+        msg.text = res["Continuations"];
+        msg.rate = 1.9 ;
+        if(res["Continuations"] != undefined && !toShowEverything) window.speechSynthesis.speak(msg);
+            
+
         setIdealAnswerMessage(res["IdealAnswer"])
         let score = res["Score"];
         if (score && !toShowEverything) {

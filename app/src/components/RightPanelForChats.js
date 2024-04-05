@@ -121,10 +121,11 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
   const speechTokenize = (input) => {
     return input
         .replace(/[^a-zA-Z ]+/g, '')
-        .replace('/ {2,}/', '')
+        .replace(/ {2,}/g, ' ') // Corrected regular expression
         .toLowerCase()
-        .split(' ');
 };
+
+
 
 const startSpeechRecognition = () => {
     recognition.start();
