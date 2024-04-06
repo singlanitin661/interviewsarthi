@@ -34,50 +34,50 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
     recognition.continuous = true;
 
     recognition.onresult = (event) => {
-        const speechTokens = speechTokenize(event.results[event.results.length - 1][0].transcript);
-        let speechScore = 0;
+      const speechTokens = speechTokenize(event.results[event.results.length - 1][0].transcript);
+      let speechScore = 0;
 
-        fetch("./AFINN.json")
-            .then(response => response.json())
-            .then(data => {
-                speechTokens.forEach(token => {
-                    if (data[token]) {
-                        speechScore += data[token];
-                    }
-                });
+      fetch("./AFINN.json")
+        .then(response => response.json())
+        .then(data => {
+          speechTokens.forEach(token => {
+            if (data[token]) {
+              speechScore += data[token];
+            }
+          });
 
-                if (speechScore >= 0) {
-                    setSpeechWarn("All good!");
-                } else {
-                    setSpeechWarn("Warning!");
-                    alert("PLEASE RESTART SPEECH TO TEXT");
-                    Array.from({ length: 3 }, (_, index) => {
-                        setTimeout(() => {
-                            const audioCtx = new (window.AudioContext || window.webkitAudioContext || window.audioContext)();
-                            const oscillator = audioCtx.createOscillator();
-                            const gainNode = audioCtx.createGain();
-                            oscillator.connect(gainNode);
-                            gainNode.connect(audioCtx.destination);
-                            oscillator.start(audioCtx.currentTime);
-                            oscillator.frequency.value = 1320;
-                            oscillator.stop(audioCtx.currentTime + 0.05);
-                        }, index * 300);
-                    });
-                }
+          if (speechScore >= 0) {
+            setSpeechWarn("All good!");
+          } else {
+            setSpeechWarn("Warning!");
+            alert("PLEASE RESTART SPEECH TO TEXT");
+            Array.from({ length: 3 }, (_, index) => {
+              setTimeout(() => {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext || window.audioContext)();
+                const oscillator = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                oscillator.start(audioCtx.currentTime);
+                oscillator.frequency.value = 1320;
+                oscillator.stop(audioCtx.currentTime + 0.05);
+              }, index * 300);
             });
-
-        setTranscript(prevTranscript => {
-          textEntered.current.value =   event.results[event.results.length - 1][0].transcript
-          return prevTranscript + textEntered.current.value
+          }
         });
+
+      setTranscript(prevTranscript => {
+        textEntered.current.value = event.results[event.results.length - 1][0].transcript
+        return prevTranscript + textEntered.current.value
+      });
     };
 
     setRecognition(recognition);
 
     return () => {
-        recognition.stop();
+      recognition.stop();
     };
-}, []);
+  }, []);
 
 
   useEffect(() => {
@@ -109,31 +109,31 @@ const RightPanelForChats = ({ totalCount = 4 }) => {
   }, [history, isGeminiWorking]);
 
   const handleMicClick = () => {
-    if (!micOn){
+    if (!micOn) {
       startSpeechRecognition()
     } else {
-        stopSpeechRecognition();
+      stopSpeechRecognition();
     }
     console.log(micOn + " " + transcript);
-     setMicOn((micOn) => !micOn);
+    setMicOn((micOn) => !micOn);
   }
 
   const speechTokenize = (input) => {
     return input
-        .replace(/[^a-zA-Z ]+/g, '')
-        .replace(/ {2,}/g, ' ') // Corrected regular expression
-        .toLowerCase()
-};
+      .replace(/[^a-zA-Z ]+/g, '')
+      .replace(/ {2,}/g, ' ') // Corrected regular expression
+      .toLowerCase()
+  };
 
 
 
-const startSpeechRecognition = () => {
+  const startSpeechRecognition = () => {
     recognition.start();
-};
+  };
 
-const stopSpeechRecognition = () => {
+  const stopSpeechRecognition = () => {
     recognition.stop();
-};
+  };
 
   const handleSendText = async () => {
     const userInput = textEntered.current.value;
@@ -212,7 +212,7 @@ const stopSpeechRecognition = () => {
               className={"max-h-30 shadow-md border sm:rounded-lg md:rounded-xl lg:rounded-xl xl:rounded-xl overflow-y-scroll grow p-4 focus:border-gray-500"}
               placeholder={"Type your answer"}
               maxRows={3}
-              ref={ textEntered}
+              ref={textEntered}
               onKeyDown={handleKeyPress}
             />
 
